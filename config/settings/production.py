@@ -8,7 +8,7 @@ from .base import env
 # https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=['https://cryptowills.herokuapp.com/'])
+ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", "cryptowills.herokuapp.com", default=['https://cryptowills.herokuapp.com/'])
 
 # DATABASES
 # ------------------------------------------------------------------------------
