@@ -5,6 +5,7 @@ from pathlib import Path
 import os
 from urllib.parse import urlparse
 
+
 import environ
 
 ROOT_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
