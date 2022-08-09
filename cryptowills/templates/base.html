@@ -26,9 +26,9 @@
     <!-- Your stuff: Third-party CSS libraries go here -->
 
     <!-- This file stores project-specific CSS -->
-    {% compress css %}
+    {% comment %} {% compress css %} {% endcomment %}
     <link href="{% static 'css/project.css' %}" rel="stylesheet" />
-    {% endcompress %}
+    {% comment %} {% endcompress %} {% endcomment %}
     {% endblock %}
     <!-- Le javascript
     ================================================== -->
@@ -45,9 +45,9 @@
     <!-- Your stuff: Third-party javascript libraries go here -->
 
     <!-- place project specific Javascript in this file -->
-    {% compress js %}
+    {% comment %} {% compress js %} {% endcomment %}
     <script defer src="{% static 'js/project.js' %}"></script>
-    {% endcompress %}
+    {% comment %} {% endcompress %} {% endcomment %}
     {% endblock javascript %}
   </head>
 
