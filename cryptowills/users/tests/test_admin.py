@@ -1,6 +1,6 @@
 from django.urls import reverse
 
-from feron.users.models import User
+from cryptowills.users.models import User
 
 
 class TestUserAdmin:

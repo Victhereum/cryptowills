@@ -10,7 +10,7 @@ services:
     build:
       context: .
       dockerfile: ./compose/production/django/Dockerfile
-    image: feron_production_django
+    image: cryptowills_production_django
     platform: linux/x86_64
     depends_on:
       - postgres
@@ -24,7 +24,7 @@ services:
     build:
       context: .
       dockerfile: ./compose/production/postgres/Dockerfile
-    image: feron_production_postgres
+    image: cryptowills_production_postgres
     volumes:
       - production_postgres_data:/var/lib/postgresql/data:Z
       - production_postgres_data_backups:/backups:z
@@ -35,7 +35,7 @@ services:
     build:
       context: .
       dockerfile: ./compose/production/traefik/Dockerfile
-    image: feron_production_traefik
+    image: cryptowills_production_traefik
     depends_on:
       - django
     volumes:

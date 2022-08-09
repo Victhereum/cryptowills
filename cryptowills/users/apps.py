@@ -3,11 +3,11 @@ from django.utils.translation import gettext_lazy as _
 
 
 class UsersConfig(AppConfig):
-    name = "feron.users"
+    name = "cryptowills.users"
     verbose_name = _("Users")
 
     def ready(self):
         try:
-            import feron.users.signals  # noqa F401
+            import cryptowills.users.signals  # noqa F401
         except ImportError:
             pass

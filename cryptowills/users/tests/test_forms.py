@@ -3,8 +3,8 @@ Module for all Form Tests.
 """
 from django.utils.translation import gettext_lazy as _
 
-from feron.users.forms import UserAdminCreationForm
-from feron.users.models import User
+from cryptowills.users.forms import UserAdminCreationForm
+from cryptowills.users.models import User
 
 
 class TestUserAdminCreationForm:

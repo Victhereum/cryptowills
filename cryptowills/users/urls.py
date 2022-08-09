@@ -1,6 +1,6 @@
 from django.urls import path
 
-from feron.users.views import (
+from cryptowills.users.views import (
     user_detail_view,
     user_redirect_view,
     user_update_view,

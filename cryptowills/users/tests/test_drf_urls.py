@@ -1,6 +1,6 @@
 from django.urls import resolve, reverse
 
-from feron.users.models import User
+from cryptowills.users.models import User
 
 
 def test_user_detail(user: User):

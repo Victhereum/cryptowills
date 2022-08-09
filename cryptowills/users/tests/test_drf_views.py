@@ -1,7 +1,7 @@
 from django.test import RequestFactory
 
-from feron.users.api.views import UserViewSet
-from feron.users.models import User
+from cryptowills.users.api.views import UserViewSet
+from cryptowills.users.models import User
 
 
 class TestUserViewSet:

@@ -8,10 +8,10 @@ from django.http import HttpRequest, HttpResponseRedirect
 from django.test import RequestFactory
 from django.urls import reverse
 
-from feron.users.forms import UserAdminChangeForm
-from feron.users.models import User
-from feron.users.tests.factories import UserFactory
-from feron.users.views import (
+from cryptowills.users.forms import UserAdminChangeForm
+from cryptowills.users.models import User
+from cryptowills.users.tests.factories import UserFactory
+from cryptowills.users.views import (
     UserRedirectView,
     UserUpdateView,
     user_detail_view,

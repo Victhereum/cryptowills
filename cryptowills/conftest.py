@@ -1,7 +1,7 @@
 import pytest
 
-from feron.users.models import User
-from feron.users.tests.factories import UserFactory
+from cryptowills.users.models import User
+from cryptowills.users.tests.factories import UserFactory
 
 
 @pytest.fixture(autouse=True)

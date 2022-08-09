@@ -8,8 +8,8 @@ from urllib.parse import urlparse
 import environ
 
 ROOT_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
-# feron/
-APPS_DIR = ROOT_DIR / "feron"
+# cryptowills/
+APPS_DIR = ROOT_DIR / "cryptowills"
 env = environ.Env()
 
 READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=False)
@@ -99,7 +99,7 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
-    "feron.users",
+    "cryptowills.users",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -108,7 +108,7 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 # MIGRATIONS
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#migration-modules
-MIGRATION_MODULES = {"sites": "feron.contrib.sites.migrations"}
+MIGRATION_MODULES = {"sites": "cryptowills.contrib.sites.migrations"}
 
 # AUTHENTICATION
 # ------------------------------------------------------------------------------
@@ -203,7 +203,7 @@ TEMPLATES = [
                 "django.template.context_processors.static",
                 "django.template.context_processors.tz",
                 "django.contrib.messages.context_processors.messages",
-                "feron.users.context_processors.allauth_settings",
+                "cryptowills.users.context_processors.allauth_settings",
             ],
         },
     }
@@ -286,13 +286,13 @@ ACCOUNT_EMAIL_REQUIRED = True
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
-ACCOUNT_ADAPTER = "feron.users.adapters.AccountAdapter"
+ACCOUNT_ADAPTER = "cryptowills.users.adapters.AccountAdapter"
 # https://django-allauth.readthedocs.io/en/latest/forms.html
-ACCOUNT_FORMS = {"signup": "feron.users.forms.UserSignupForm"}
+ACCOUNT_FORMS = {"signup": "cryptowills.users.forms.UserSignupForm"}
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
-SOCIALACCOUNT_ADAPTER = "feron.users.adapters.SocialAccountAdapter"
+SOCIALACCOUNT_ADAPTER = "cryptowills.users.adapters.SocialAccountAdapter"
 # https://django-allauth.readthedocs.io/en/latest/forms.html
-SOCIALACCOUNT_FORMS = {"signup": "feron.users.forms.UserSocialSignupForm"}
+SOCIALACCOUNT_FORMS = {"signup": "cryptowills.users.forms.UserSocialSignupForm"}
 # django-compressor
 # ------------------------------------------------------------------------------
 # https://django-compressor.readthedocs.io/en/latest/quickstart/#installation
@@ -316,13 +316,13 @@ CORS_URLS_REGEX = r"^/api/.*$"
 # By Default swagger ui is available only to admin user(s). You can change permission classes to change that
 # See more configuration options at https://drf-spectacular.readthedocs.io/en/latest/settings.html#settings
 SPECTACULAR_SETTINGS = {
-    "TITLE": "Feron API",
-    "DESCRIPTION": "Documentation of API endpoints of Feron",
+    "TITLE": "cryptowills API",
+    "DESCRIPTION": "Documentation of API endpoints of cryptowills",
     "VERSION": "1.0.0",
     "SERVE_PERMISSIONS": ["rest_framework.permissions.IsAdminUser"],
     "SERVERS": [
         {"url": "http://127.0.0.1:8000", "description": "Local Development server"},
-        {"url": "https://https://www.feron.finance", "description": "Production server"},
+        {"url": "https://https://www.cryptowills.finance", "description": "Production server"},
     ],
 }
 # Your stuff...

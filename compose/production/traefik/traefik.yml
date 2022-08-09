@@ -28,7 +28,7 @@ certificatesResolvers:
 http:
   routers:
     web-secure-router:
-      rule: "Host(`https://www.feron.finance`)"
+      rule: "Host(`https://www.cryptowills.finance`)"
       entryPoints:
         - web-secure
       middlewares:

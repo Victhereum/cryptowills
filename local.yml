@@ -1,16 +1,16 @@
 version: '3'
 
 volumes:
-  feron_local_postgres_data: {}
-  feron_local_postgres_data_backups: {}
+  cryptowills_local_postgres_data: {}
+  cryptowills_local_postgres_data_backups: {}
 
 services:
   django:
     build:
       context: .
       dockerfile: ./compose/local/django/Dockerfile
-    image: feron_local_django
-    container_name: feron_local_django
+    image: cryptowills_local_django
+    container_name: cryptowills_local_django
     platform: linux/x86_64
     depends_on:
       - postgres
@@ -27,17 +27,17 @@ services:
     build:
       context: .
       dockerfile: ./compose/production/postgres/Dockerfile
-    image: feron_production_postgres
-    container_name: feron_local_postgres
+    image: cryptowills_production_postgres
+    container_name: cryptowills_local_postgres
     volumes:
-      - feron_local_postgres_data:/var/lib/postgresql/data:Z
-      - feron_local_postgres_data_backups:/backups:z
+      - cryptowills_local_postgres_data:/var/lib/postgresql/data:Z
+      - cryptowills_local_postgres_data_backups:/backups:z
     env_file:
       - ./.envs/.local/.postgres
 
   docs:
-    image: feron_local_docs
-    container_name: feron_local_docs
+    image: cryptowills_local_docs
+    container_name: cryptowills_local_docs
     platform: linux/x86_64
     build:
       context: .
@@ -47,7 +47,7 @@ services:
     volumes:
       - ./docs:/docs:z
       - ./config:/app/config:z
-      - ./feron:/app/feron:z
+      - ./cryptowills:/app/cryptowills:z
     ports:
       - "9000:9000"
     command: /start-docs
