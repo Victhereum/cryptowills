@@ -101,6 +101,7 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "cryptowills.users",
+    "cryptowills.flowers"
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

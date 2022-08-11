@@ -10,25 +10,29 @@ User = get_user_model()
 
 @admin.register(User)
 class UserAdmin(auth_admin.UserAdmin):
+    # form = UserChangeForm
+    # add_form = RegistrationForm
 
-    form = UserAdminChangeForm
-    add_form = UserAdminCreationForm
     fieldsets = (
-        (None, {"fields": ("username", "password")}),
-        (_("Personal info"), {"fields": ("name", "email")}),
+        (None, {"fields": ("email", "password")}),
+        # (_("Personal info"), {"fields": ('email',)}),
         (
             _("Permissions"),
             {
                 "fields": (
                     "is_active",
-                    "is_staff",
-                    "is_superuser",
-                    "groups",
-                    "user_permissions",
                 ),
             },
         ),
         (_("Important dates"), {"fields": ("last_login", "date_joined")}),
     )
-    list_display = ["username", "name", "is_superuser"]
-    search_fields = ["name"]
+    list_display = ['email', ]
+    list_display_links = ('email', )
+    readonly_fields = ('last_login', 'date_joined')
+    search_fields = ["email"]
+    ordering = ['email']
+
+    filter_horizontal = ()
+    list_filter = ()
+
+
