@@ -11,12 +11,13 @@ import environ
 ROOT_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 # cryptowills/
 APPS_DIR = ROOT_DIR / "cryptowills"
+print(APPS_DIR)
 env = environ.Env()
 
 READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=False)
 if READ_DOT_ENV_FILE:
     # OS environment variables take precedence over variables from .env
-    env.read_env(str(ROOT_DIR / ".env"))
+    env.read_env(str(ROOT_DIR / ".envs"))
 
 # GENERAL
 # ------------------------------------------------------------------------------
@@ -101,7 +102,7 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "cryptowills.users",
-    "cryptowills.flowers"
+    "cryptowills.flowers.apps.FlowersConfig",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -117,14 +118,15 @@ MIGRATION_MODULES = {"sites": "cryptowills.contrib.sites.migrations"}
 # https://docs.djangoproject.com/en/dev/ref/settings/#authentication-backends
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
-    "allauth.account.auth_backends.AuthenticationBackend",
+    # "allauth.account.auth_backends.AuthenticationBackend",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-user-model
 AUTH_USER_MODEL = "users.User"
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-redirect-url
-LOGIN_REDIRECT_URL = "users:redirect"
+LOGIN_REDIRECT_URL = "dashboard"
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-url
-LOGIN_URL = "account_login"
+LOGIN_URL = "users:account_login"
+LOGOUT_REDIRECT_URL = "home"
 
 # PASSWORDS
 # ------------------------------------------------------------------------------
@@ -282,7 +284,7 @@ LOGGING = {
 # ------------------------------------------------------------------------------
 ACCOUNT_ALLOW_REGISTRATION = env.bool("DJANGO_ACCOUNT_ALLOW_REGISTRATION", True)
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
-ACCOUNT_AUTHENTICATION_METHOD = "username"
+ACCOUNT_AUTHENTICATION_METHOD = "email"
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 ACCOUNT_EMAIL_REQUIRED = True
 # https://django-allauth.readthedocs.io/en/latest/configuration.html

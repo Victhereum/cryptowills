@@ -16,6 +16,7 @@ urlpatterns = [
     path(settings.ADMIN_URL, admin.site.urls),
     # User management
     path("users/", include("cryptowills.users.urls", namespace="users")),
+    path("flowers/", include("cryptowills.flowers.urls", namespace="flowers")),
     path("accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,1 +1,37 @@
 {% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+{% if request.user.is_authenticated %}
+  {{ user }}
+  <p><strong>Add Flower:</strong> <a href="{% url 'flowers:add_flowers' %}">>></a></p>
+  <ul>
+    {% for flower in user.user_flowers.all %}
+    <li>{{ flower.identifier }}</li>
+    {% endfor%}
+  </ul>
+  <p><strong>Add Benefactor:</strong> <a href="{% url 'users:add_benefactor' %}">>></a></p>
+
+  <p>Beneficiaries</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Identifier</th>
+        <th>Wallet_Address</th>
+        {% comment %} <th></th> {% endcomment %}
+      </tr>
+    </thead>
+      <tbody>
+        <tr>
+          <td>{{user.user_beneficiary.get.identifier}}</td>
+          <td>{{user.user_beneficiary.get.wallet_address}}</td>
+        </tr>
+      </tbody>
+  </table>
+{% else %}
+  <p><strong>Your're not signed in</strong> <a href="{% url 'users:account_login' %}}">Login</a></p>
+{% endif %}
+
+
+{% endblock %}

@@ -4,11 +4,11 @@
 {% load account socialaccount %}
 {% load crispy_forms_tags %}
 
-{% block head_title %}{% translate "Sign In" %}{% endblock %}
+{% block head_title %}{% translate "Add API" %}{% endblock %}
 
 {% block inner %}
 
-<h1>{% translate "Sign In" %}</h1>
+<h1>{% translate "Add API" %}</h1>
 
 {% get_providers as socialaccount_providers %}
 
@@ -17,7 +17,7 @@
     {% translate "Please sign in with one of your existing third party accounts:" %}
     {% if ACCOUNT_ALLOW_REGISTRATION %}
       {% blocktranslate trimmed %}
-        Or, <a href="{{ signup_url }}">sign up</a>
+        Or, <a href="{{ signup_url }}">Add API</a>
         for a {{ site_name }} account and sign in below:
       {% endblocktranslate %}
     {% endif %}
@@ -39,21 +39,27 @@
   {% if ACCOUNT_ALLOW_REGISTRATION %}
     <p>
       {% blocktranslate trimmed %}
-        If you have not created an account yet, then please
-        <a href="{{ signup_url }}">sign up</a> first.
+        You can add a API here
       {% endblocktranslate %}
     </p>
   {% endif %}
 {% endif %}
-
-<form class="login" method="POST" action= "{% url 'users:account_login' %}">
+{% with user_flower=request.user.user_flowers.count %}
+{% if user_flower %}
+<p>You have {{ user_flower }} API</p>
+{% endif %}
+{% if user_flower %}
+<h1>{% translate "Your current plan allows you to add just one API, upgrade to add more" %}</h1>
+{% else %}
+<form class="login" method="POST" action= "{% url 'flowers:add_flowers' %}">
   {% csrf_token %}
   {{ form|crispy }}
   {% if redirect_field_value %}
   <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
   {% endif %}
   {% comment %} <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% translate "Forgot Password?" %}</a> {% endcomment %}
-  <button class="primaryAction btn btn-primary" type="submit">{% translate "Sign In" %}</button>
+  <button class="primaryAction btn btn-primary" type="submit">{% translate "Submit" %}</button>
 </form>
-
+{% endif %}
+{% endwith %}
 {% endblock %}

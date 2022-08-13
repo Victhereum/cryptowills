@@ -68,20 +68,6 @@ class Exchange():
         coin = self.exchange.fetch_balance()
         return coin['free'][coin_ticker]
 
-    def withdraw_to_multiple_beneficiaries(self, addresses):
-        '''
-        Takes in a dictionary of beneficiary addresses for a user
-        and withdraws the percentage equivalent to them
-        '''
-        # TODO: Work on this later
-        self.addresses = {}
-        count = 0
-        for address in addresses:
-            self.addresses
-        for coin, balance in self.get_all_coin_balances():
-            self.exchange.withdraw( coin, balance, self.addresses[count])
-            count += 1
-        return self.success
 
     def withdraw_coin(self, address):
         '''
@@ -89,8 +75,15 @@ class Exchange():
         '''
         self.success = False
         self.address = str(address)
-        for coin, balance in self.get_all_coin_balances():
-            self.exchange.withdraw( coin, balance, self.address)
+        try:
+            for coin, balance in self.get_all_coin_balances():
+                self.exchange.withdraw( coin, balance, self.address)
+        except ccxt.NetworkError as e:
+                print(self.exchange.id, 'Network Error:', str(e))
+        except ccxt.ExchangeError as e:
+                print(self.exchange.id,'exchange error, which translates that there no funds in the funding wallet', str(e))
+        except Exception as e:
+                print(self.exchange.id, 'Failed with', str(e))
         return self.success
 
     def transfer(self):
@@ -133,9 +126,31 @@ class Exchange():
                 print(self.exchange.id,'Exchange Error', str(e))
             except Exception as e:
                 print(self.exchange.id, 'Failed with', str(e))
-        
+
         return self.success
 
     def singularize_and_withdraw(self):
+        '''
+        Singularizes and withdraws the converted USDT(TRC20) to users beneficiary
+        '''
         self.singularize_assets()
         self.withdraw_coin()
+
+    def withdraw_to_multiple_beneficiaries(self, addresses):
+        '''
+        Takes in a dictionary of beneficiary addresses for a user
+        and withdraws the percentage equivalent to them
+        Performs a Singularize function and then disburst the
+        funds to multiple beneficiaries
+        '''
+        # TODO: Work on this later
+        self.addresses = {}
+        count = 0
+        for address in addresses:
+            self.addresses
+        for coin, balance in self.get_all_coin_balances():
+            self.exchange.withdraw( coin, balance, self.addresses[count])
+            count += 1
+        return self.success
+
+
