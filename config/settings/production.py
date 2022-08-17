@@ -1,3 +1,5 @@
+import os
+
 from django.core.management.utils import get_random_secret_key
 
 from .base import *  # noqa
@@ -8,7 +10,11 @@ from .base import env
 # https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ["DJANGO_ALLOWED_HOSTS", "cryptowills.herokuapp.com", 'https://cryptowills.herokuapp.com/']
+ALLOWED_HOSTS = [
+    "DJANGO_ALLOWED_HOSTS",
+    "cryptowills.herokuapp.com",
+    "https://cryptowills.herokuapp.com/",
+]
 
 # DATABASES
 # ------------------------------------------------------------------------------

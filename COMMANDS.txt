@@ -1,0 +1,29 @@
+# RabbitMQ server
+    To Enable
+        sudo systemctl enable rabbitmq-server
+    To Start
+        sudo systemctl start rabbitmq-server
+    To Stop
+        sudo systemctl stop rabbitmq-server
+    Check Status
+        sudo systemctl status rabbitmq-server
+
+# Celery
+    NOTE: Celery depends on a message broker like RabbitMQ or Reddis,
+            and so needs to connet to a live instance of one of them
+
+    Start Celery:
+        celery -A config.celery_app worker -l info
+
+# Flower
+    commands:
+        celery -A config.celery_app flower [ANY UNUSED PORT]
+            e.g celery -A config.celery_app flower --port=5555
+
+# Django_Celery_Beat
+    commands:
+        Start Celery Beat from SETTINGS
+            celery -A config.celery_app beat -l -INFO
+        Start Celery BEat from Database
+
+#

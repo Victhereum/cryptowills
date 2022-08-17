@@ -11,11 +11,7 @@ from django.urls import reverse
 from cryptowills.users.forms import UserAdminChangeForm
 from cryptowills.users.models import User
 from cryptowills.users.tests.factories import UserFactory
-from cryptowills.users.views import (
-    UserRedirectView,
-    UserUpdateView,
-    user_detail_view,
-)
+from cryptowills.users.views import UserRedirectView, UserUpdateView, user_detail_view
 
 pytestmark = pytest.mark.django_db
 

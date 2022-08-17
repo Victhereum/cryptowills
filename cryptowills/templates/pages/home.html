@@ -5,7 +5,7 @@
 {% block content %}
 {% if request.user.is_authenticated %}
   {{ user }}
-  <p><strong>Add Flower:</strong> <a href="{% url 'flowers:add_flowers' %}">>></a></p>
+  <p><strong>Add Exchange:</strong> <a href="{% url 'flowers:add_flowers' %}">>></a></p>
   <ul>
     {% for flower in user.user_flowers.all %}
     <li>{{ flower.identifier }}</li>
@@ -29,6 +29,29 @@
         </tr>
       </tbody>
   </table>
+  <br>
+  <br>
+  <br>
+  <br>
+  <p>Portflio</p>
+  {% comment %} <p>{{exchange | capfirst}}</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Coin</th>
+        <th>Balance</th>
+      </tr>
+    </thead>
+      <tbody>
+        {% for coin, balance in exchange.get_all_coin_balances.items%}
+        <tr>
+          <td>{{coin}}</td>
+          <td>{{balance}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+  </table> {% endcomment %}
+
 {% else %}
   <p><strong>Your're not signed in</strong> <a href="{% url 'users:account_login' %}}">Login</a></p>
 {% endif %}

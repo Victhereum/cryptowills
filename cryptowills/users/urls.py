@@ -2,10 +2,10 @@ from django.urls import path
 
 from cryptowills.users.views import (
     add_benefactor,
-    signup,
+    dashboard,
     login_user,
     logout_user,
-    dashboard,
+    signup,
 )
 
 app_name = "users"
@@ -16,8 +16,6 @@ urlpatterns = [
     path("signup/", view=signup, name="account_signup"),
     path("login/", view=login_user, name="account_login"),
     path("logout/", view=logout_user, name="account_logout"),
-    path("dashboard/", view=dashboard, name='dashboard'),
-    path("add_benefactor/", view=add_benefactor, name='add_benefactor'),
-
-
+    path("dashboard/", view=dashboard, name="dashboard"),
+    path("add_benefactor/", view=add_benefactor, name="add_benefactor"),
 ]

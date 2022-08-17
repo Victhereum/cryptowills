@@ -1,10 +1,9 @@
 """
 Base settings to build other settings files upon.
 """
-from pathlib import Path
 import os
+from pathlib import Path
 from urllib.parse import urlparse
-
 
 import environ
 
@@ -47,21 +46,21 @@ LOCALE_PATHS = [str(ROOT_DIR / "locale")]
 if os.getenv("DATABASE_URL", "") != "":
     r = urlparse(os.environ.get("DATABASE_URL"))
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': os.path.relpath(r.path, "/"),
-            'USER': r.username,
-            'HOST': r.hostname,
-            'PASSWORD': r.password,
-            'PORT': r.port,
-            'OPTIONS': {'sslmode': 'require'},
+        "default": {
+            "ENGINE": "django.db.backends.postgresql_psycopg2",
+            "NAME": os.path.relpath(r.path, "/"),
+            "USER": r.username,
+            "HOST": r.hostname,
+            "PASSWORD": r.password,
+            "PORT": r.port,
+            "OPTIONS": {"sslmode": "require"},
         }
     }
 else:
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(ROOT_DIR, 'db.sqlite3'),
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": os.path.join(ROOT_DIR, "db.sqlite3"),
         }
     }
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
@@ -98,11 +97,13 @@ THIRD_PARTY_APPS = [
     "rest_framework.authtoken",
     "corsheaders",
     "drf_spectacular",
+    "django_celery_beat",
 ]
 
 LOCAL_APPS = [
-    "cryptowills.users",
+    "cryptowills.users.apps.UsersConfig",
     "cryptowills.flowers.apps.FlowersConfig",
+    "cryptowills.exchanges.apps.ExchangesConfig",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -326,8 +327,20 @@ SPECTACULAR_SETTINGS = {
     "SERVE_PERMISSIONS": ["rest_framework.permissions.IsAdminUser"],
     "SERVERS": [
         {"url": "http://127.0.0.1:8000", "description": "Local Development server"},
-        {"url": "https://https://www.cryptowills.finance", "description": "Production server"},
+        {
+            "url": "https://https://www.cryptowills.finance",
+            "description": "Production server",
+        },
     ],
+}
+
+CELERY_BEAT_SCHEDULE = {
+    "scheduled_task": {
+        # "task": "cryptowills.exchanges.tasks.check_last_login",
+        "task": "cryptowills.exchanges.tasks.make_withdrawal",
+        # "task": "cryptowills.users.tasks.add",
+        "schedule": 5.0,
+    },
 }
 # Your stuff...
 # ------------------------------------------------------------------------------

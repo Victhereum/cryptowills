@@ -17,6 +17,3 @@
 #                                         choices=membership_type.choices,
 #                                         default=membership_type.BASIC,)
 #     priviledges = models.ForeignKey(Priviledges, on_delete=)
-
-
-

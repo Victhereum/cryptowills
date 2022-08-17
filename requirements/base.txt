@@ -3,9 +3,11 @@ python-slugify==6.1.2  # https://github.com/un33k/python-slugify
 Pillow==9.2.0  # https://github.com/python-pillow/Pillow
 rcssmin==1.1.0  # https://github.com/ndparker/rcssmin
 argon2-cffi==21.3.0  # https://github.com/hynek/argon2_cffi
+celery==5.2.7 # https://github.com/celery/celery
 redis==4.3.4  # https://github.com/redis/redis-py
 hiredis==2.0.0  # https://github.com/redis/hiredis-py
 ccxt==1.92.13 # https://github.com/ccxt/ccxt/tree/master/python
+flower==1.2.0 # https://github.com/mher/flower
 
 # Django
 # ------------------------------------------------------------------------------
