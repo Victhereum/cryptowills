@@ -3,7 +3,7 @@ import os
 from django.core.management.utils import get_random_secret_key
 
 from .base import *  # noqa
-from .base import env
+from .base import MIDDLEWARE, env
 
 # GENERAL
 # ------------------------------------------------------------------------------
@@ -94,6 +94,9 @@ ADMIN_URL = os.getenv("DJANGO_ADMIN_URL")
 # https://anymail.readthedocs.io/en/stable/esps
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 ANYMAIL = {}
+
+# WhiteNoise
+MIDDLEWARE.insert(1, "whitenoise.middleware.WhiteNoiseMiddleware")
 
 # django-compressor
 # ------------------------------------------------------------------------------
