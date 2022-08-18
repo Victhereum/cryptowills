@@ -1,16 +1,4 @@
-from pathlib import Path
-
 import ccxt
-import environ
-
-ROOT_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
-
-env = environ.Env()
-
-
-env.read_env(str(ROOT_DIR / ".envs/.local/.django"))
-API_KEY = env("API_KEY")
-SEC_KEY = env("SEC_KEY")
 
 
 class Exchange:
@@ -155,6 +143,3 @@ class Exchange:
             self.exchange.withdraw(coin, balance, self.addresseses[count])
             count += 1
         return self.success
-
-
-#
