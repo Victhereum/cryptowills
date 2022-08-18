@@ -8,11 +8,10 @@ redis==4.3.4  # https://github.com/redis/redis-py
 hiredis==2.0.0  # https://github.com/redis/hiredis-py
 ccxt==1.92.13 # https://github.com/ccxt/ccxt/tree/master/python
 flower==1.2.0 # https://github.com/mher/flower
-django-celery-beat==2.3.0 # https://github.com/celery/django-celery-results
 
 # Django
 # ------------------------------------------------------------------------------
-django==4.1  # pyup: < 4.0  # https://www.djangoproject.com/
+django==4.0  # pyup: < 4.0  # https://www.djangoproject.com/
 django-environ==0.9.0  # https://github.com/joke2k/django-environ
 django-model-utils==4.2.0  # https://github.com/jazzband/django-model-utils
 django-allauth==0.51.0  # https://github.com/pennersr/django-allauth
@@ -20,6 +19,8 @@ django-crispy-forms==1.14.0  # https://github.com/django-crispy-forms/django-cri
 crispy-bootstrap5==0.6  # https://github.com/django-crispy-forms/crispy-bootstrap5
 django-compressor==4.1  # https://github.com/django-compressor/django-compressor
 django-redis==5.2.0  # https://github.com/jazzband/django-redis
+django-celery-beat==2.3.0 # https://github.com/celery/django-celery-beat
+
 # Django REST Framework
 djangorestframework==3.13.1  # https://github.com/encode/django-rest-framework
 django-cors-headers==3.13.0 # https://github.com/adamchainz/django-cors-headers
