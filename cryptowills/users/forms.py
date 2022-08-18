@@ -14,10 +14,20 @@ class UserSignupForm(forms.ModelForm):
     """
 
     password = forms.CharField(
-        widget=forms.PasswordInput(attrs={"placeholder": "Enter password"})
+        widget=forms.PasswordInput(
+            attrs={
+                "placeholder": "Enter password",
+                "class": "form-control input--squared input--dark",
+            }
+        )
     )
     confirm_password = forms.CharField(
-        widget=forms.PasswordInput(attrs={"placeholder": "Confirm password"})
+        widget=forms.PasswordInput(
+            attrs={
+                "placeholder": "Confirm password",
+                "class": "form-control input--squared input--dark",
+            }
+        )
     )
 
     class Meta:
@@ -26,17 +36,33 @@ class UserSignupForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["email"].widget.attrs["placeholder"] = "example@domain.com"
-        self.fields["country"].widget.attrs["placeholder"] = "Nigeria"
+        self.fields["email"].widget.attrs = {
+            "placeholder": "example@domain.com",
+            "class": "form-control input--squared input--dark",
+        }
+        self.fields["country"].widget.attrs = {
+            "placeholder": "Country",
+            "class": "form-control input--squared input--dark",
+        }
 
 
 class LoginForm(forms.Form):
     email = forms.CharField(
-        widget=forms.EmailInput(attrs={"placeholder": "Email", "class": "form-control"})
+        widget=forms.EmailInput(
+            attrs={
+                "placeholder": "example@domain.com",
+                "class": "input--dark input--squared",
+                "id": "name",
+            }
+        )
     )
     password = forms.CharField(
         widget=forms.PasswordInput(
-            attrs={"placeholder": "Password", "class": "form-control"}
+            attrs={
+                "placeholder": "********",
+                "class": "input--dark input--squared",
+                "id": "password",
+            }
         )
     )
 
@@ -57,10 +83,15 @@ class AddBeneficiary(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["wallet_address"].widget.attrs["placeholder"] = "a wallet address"
-        self.fields["identifier"].widget.attrs[
-            "placeholder"
-        ] = "A name tag for this account"
-        self.fields["coin_ticker"].widget.attrs[
-            "placeholder"
-        ] = "Ticker e.g. BTC, USDT, BNB"
+        self.fields["wallet_address"].widget.attrs = {
+            "placeholder": "USDT(TRC20) wallet address",
+            "class": "input--dark input--squared",
+        }
+        self.fields["identifier"].widget.attrs = {
+            "placeholder": "wallet tag",
+            "class": "input--dark input--squared",
+        }
+        self.fields["coin_ticker"].widget.attrs = {
+            "placeholder": "Ticker e.g USDT, BNB, ETH",
+            "class": "input--dark input--squared",
+        }

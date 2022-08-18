@@ -1,23 +1,44 @@
-{% extends "account/base.html" %}
+{% extends 'partials/form_layout.html' %}
+{% load static %}
+{% block heading %} SignUp {% endblock heading %}
+  {% block form_content %}
+          <div class="form-group label-floating is-empty">
+            <label for="email" class="input-label">Email Address <abbr class="required" title="required">*</abbr></label>
+            {{ form.email }}
+          </div>
+          <div class="form-group label-floating is-empty">
+            <label for="country" class="input-label">Country <abbr class="required" title="required">*</abbr></label>
+            {{ form.country }}
+          </div>
+          <div class="form-group label-floating is-empty">
+            <label for="password" class="input-label">Password<abbr class="required" title="required">*</abbr></label>
+            {{ form.password }}
+          </div>
+          <div class="form-group label-floating is-empty">
+            <label for="confirm_password" class="input-label">Confirm Password<abbr class="required" title="required">*</abbr></label>
+            {{ form.confirm_password }}
+          </div>
 
-{% load i18n %}
-{% load crispy_forms_tags %}
-
-{% block head_title %}{% translate "Signup" %}{% endblock %}
-
-{% block inner %}
-<h1>{% translate "Sign Up" %}</h1>
-
-<p>{% blocktranslate %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktranslate %}</p>
-
-<form class="signup" id="signup_form" method="POST" action="{% url 'users:account_signup' %}">
-  {% csrf_token %}
-  {{ form|crispy }}
-  {{ extrafields|crispy }}
-  {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-  {% endif %}
-  <button class="btn btn-primary" type="submit">{% translate "Sign Up" %} &raquo;</button>
-</form>
-
-{% endblock %}
+          <div class="checkbox checkbox--style3">
+            <label>
+              <input type="checkbox" name="optionsCheckboxes10" checked>
+              I agree with the all additional
+              <a class="link-underlined" href="#">Terms and Conditions</a>
+            </label>
+          </div>
+  {% endblock form_content %}
+        {% block button %}
+        <button class="btn btn--large btn--green-light btn--with-icon btn--icon-right">
+          SignUp
+          <svg class="woox-icon icon-arrow-right"><use xlink:href="#icon-arrow-right"></use></svg>
+        </button>
+        {% endblock button %}
+        {% block extrafields %}
+        <div style="float: right">
+        <a class="link-underlined" href="#">have an account?</a><br>
+        <button class="btn btn--large btn--primary btn--with-icon btn--icon-right">
+          Login
+          <svg class="woox-icon icon-arrow-right"><use xlink:href="#icon-arrow-right"></use></svg>
+        </button>
+      </div>
+        {% endblock extrafields %}

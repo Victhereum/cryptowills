@@ -31,4 +31,4 @@ def add_flowers(request):
 
     context = {"form": form}
 
-    return render(request, "flower/add_api.html", context)
+    return render(request, "flower/add_flower.html", context)

@@ -20,9 +20,19 @@ class AddFlowers(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["identifier"].widget.attrs["placeholder"] = "e.g binance"
-        self.fields["exchange"].widget.attrs[
-            "placeholder"
-        ] = "give a tag to this api e.g Binance-My Child"
-        self.fields["api_key"].widget.attrs["placeholder"] = "API Key"
-        self.fields["secret"].widget.attrs["placeholder"] = "API Secret"
+        self.fields["identifier"].widget.attrs = {
+            "placeholder": "give a tag to this api e.g My family Binance",
+            "class": "input--dark input--squared",
+        }
+        self.fields["exchange"].widget.attrs = {
+            "placeholder": "Binance",
+            "class": "input--dark input--squared",
+        }
+        self.fields["api_key"].widget.attrs = {
+            "placeholder": "API Key",
+            "class": "input--dark input--squared",
+        }
+        self.fields["secret"].widget.attrs = {
+            "placeholder": "Secret",
+            "class": "input--dark input--squared",
+        }

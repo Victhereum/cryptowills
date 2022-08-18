@@ -131,7 +131,7 @@ def login_user(request):
 def logout_user(request):
     auth.logout(request)
     messages.Info(request, "Your are logged out.")
-    return redirect("pages/home.html")
+    return redirect("home")
 
 
 @login_required
@@ -153,7 +153,7 @@ def dashboard(request):
 
     # print(exchange.get_all_coin_balances())
     # print(make_withdrawal())
-    return render(request, "pages/home.html", context)
+    return render(request, "account/portfolio/dashboard.html", context)
 
 
 def add_benefactor(request):

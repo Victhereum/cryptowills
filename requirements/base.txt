@@ -8,6 +8,7 @@ redis==4.3.4  # https://github.com/redis/redis-py
 hiredis==2.0.0  # https://github.com/redis/hiredis-py
 ccxt==1.92.13 # https://github.com/ccxt/ccxt/tree/master/python
 flower==1.2.0 # https://github.com/mher/flower
+django-celery-beat==2.3.0 # https://github.com/celery/django-celery-results
 
 # Django
 # ------------------------------------------------------------------------------

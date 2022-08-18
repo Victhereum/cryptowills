@@ -1,58 +1,20 @@
-{% extends "account/base.html" %}
-
-{% load i18n %}
-{% load account socialaccount %}
-{% load crispy_forms_tags %}
-
-{% block head_title %}{% translate "Add Beneficiary" %}{% endblock %}
-
-{% block inner %}
-
-<h1>{% translate "Add Beneficiary" %}</h1>
-
-{% get_providers as socialaccount_providers %}
-
-{% if socialaccount_providers %}
-  <p>
-    {% translate "Please sign in with one of your existing third party accounts:" %}
-    {% if ACCOUNT_ALLOW_REGISTRATION %}
-      {% blocktranslate trimmed %}
-        Or, <a href="{{ signup_url }}">Add Beneficiary</a>
-        for a {{ site_name }} account and sign in below:
-      {% endblocktranslate %}
-    {% endif %}
-  </p>
-
-  <div class="socialaccount_ballot">
-
-    <ul class="socialaccount_providers">
-      {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-    </ul>
-
-    <div class="login-or">{% translate "or" %}</div>
-
-  </div>
-
-  {% include "socialaccount/snippets/login_extra.html" %}
-
-{% else %}
-  {% if ACCOUNT_ALLOW_REGISTRATION %}
-    <p>
-      {% blocktranslate trimmed %}
-        You can add a benefiary here
-      {% endblocktranslate %}
-    </p>
-  {% endif %}
-{% endif %}
-
-<form class="login" method="POST" action= "{% url 'users:add_benefactor' %}">
-  {% csrf_token %}
-  {{ form|crispy }}
-  {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-  {% endif %}
-  {% comment %} <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% translate "Forgot Password?" %}</a> {% endcomment %}
-  <button class="primaryAction btn btn-primary" type="submit">{% translate "Submit" %}</button>
-</form>
-
-{% endblock %}
+{% extends 'partials/form_layout.html' %}
+{% load static %}
+{% block heading %} Add Beneficiary {% endblock heading %}
+  {% block form_content %}
+          <label for="identifier" class="input-label">Tag<abbr class="required" title="required">*</abbr></label>
+          <div class="input-with-icon input-icon--right">
+            {{ form.identifier }}
+            <svg class="woox-icon icon-black-male-user-symbol-2"><use xlink:href="#icon-black-male-user-symbol-2"></use></svg>
+          </div>
+          <label for="coin_ticker" class="input-label">Ticker<abbr class="required" title="required">*</abbr></label>
+          <div class="input-with-icon input-icon--right">
+            {{ form.coin_ticker }}
+            <svg class="woox-icon icon-padlock"><use xlink:href="#icon-padlock"></use></svg>
+          </div>
+          <label for="wallet_address" class="input-label">Wallet Address<abbr class="required" title="required">*</abbr></label>
+          <div class="input-with-icon input-icon--right">
+            {{ form.wallet_address }}
+            <svg class="woox-icon icon-padlock"><use xlink:href="#icon-padlock"></use></svg>
+          </div>
+  {% endblock form_content %}
