@@ -19,4 +19,6 @@ class Flowers(models.Model):
     )
     api_key = models.CharField(max_length=200)
     secret = models.CharField(max_length=200)
-    identifier = models.TextField()
+
+    def __str__(self) -> str:
+        return f"{self.exchange.name}"

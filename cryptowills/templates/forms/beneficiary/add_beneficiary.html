@@ -1,0 +1,17 @@
+{% extends '_partials/form_layout.html' %} {% load static %} {% block heading %}
+Add Beneficiary{% endblock heading %} {% block form_content %}
+<label for="identifier" class="input-label"
+  >Tag<abbr class="required" title="required">*</abbr></label
+>
+<div class="input-with-icon input-icon--right">
+  {{ form.identifier }}
+  <svg class="woox-icon"><use xlink:href="#icon-hash-key"></use></svg>
+</div>
+<label for="wallet_address" class="input-label"
+  >Wallet Address<abbr class="required" title="required">*</abbr></label
+>
+<div class="input-with-icon input-icon--right">
+  {{ form.wallet_address }}
+  <svg class="woox-icon"><use xlink:href="#icon-bitcoin-on-ball"></use></svg>
+</div>
+{% endblock form_content %}

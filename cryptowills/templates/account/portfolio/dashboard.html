@@ -1,0 +1,58 @@
+{% extends '_partials/base.html' %} {% load static %} {% block content %}
+{% if user.is_firsttime %}
+  {% include '_partials/popups/firsttimer.html' %}
+{% elif not user.has_beneficiary %}
+  {% include '_partials/popups/no_beneficiary.html' %}
+{% elif not user.has_flowers %}
+  {% include '_partials/popups/no_flower.html' %}
+{% elif not user.has_willed %}
+  {% include '_partials/popups/not_linked.html' %}
+{% endif %}
+<section class="pt100">
+  <div class="container">
+    <h2 class="heading-title heading--half-colored">Portfolio</h2>
+    <div class="row">
+      <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12" data-mh="pricing-item">
+        <div class="crumina-module crumina-pricing-table pricing-table--small">
+          <div class="pricing-thumb">
+            <img
+              src="{% static 'img/logo-primary.png' %}"
+              class="woox-icon"
+              alt="bitcoin"
+            />
+            <h5 class="pricing-title">
+              {{ exchange_name | capfirst }} <span></span>
+            </h5>
+            <div class="gain-drop-arrow">
+              <svg class="woox-icon icon-arrow-up arrow-up active">
+                <use xlink:href="#icon-arrow-up"></use>
+              </svg>
+              <svg class="woox-icon icon-arrow-down arrow-down">
+                <use xlink:href="#icon-arrow-down"></use>
+              </svg>
+            </div>
+          </div>
+          <div style="float: left" class="price">
+            <div class="price-sup-title">Balance</div>
+            <div class="price-value">
+              ${{ exchange.get_balance }}
+            </div>
+          </div>
+          <div style="float: right" class="price">
+          <div class="price-sup-title">Assets</div>
+            <div class="price-value">
+              <div class="growth">{{ exchange.get_all_coins | length }}</div>
+            </div>
+          </div>
+          <a
+            href="{% url 'exchanges:info' exchange_name %}"
+            class="btn btn--large btn--dark-lighter btn--transparent full-width"
+            >View</a
+          >
+        </div>
+      </div>
+    </div>
+    <hr class="divider" />
+  </div>
+</section>
+{% endblock content %}

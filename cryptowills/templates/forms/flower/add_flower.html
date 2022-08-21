@@ -1,0 +1,51 @@
+{% extends '_partials/form_layout.html' %} {% load static %} {% block heading %}
+Add Exchange {% endblock heading %} {% block form_content %}
+<label for="email" class="input-label"
+  >Exchange<abbr class="required" title="required">*</abbr></label
+>
+<div class="input-with-icon input-icon--right">
+  {{ form.exchange }}
+  <svg class="woox-icon icon-black-male-user-symbol-2">
+    <use xlink:href="#icon-black-male-user-symbol-2"></use>
+  </svg>
+</div>
+<label for="api_Key" class="input-label"
+  >API Key<abbr class="required" title="required">*</abbr></label
+>
+<div class="input-with-icon input-icon--right">
+  {{ form.api_key }}
+  <svg class="woox-icon icon-padlock">
+    <use xlink:href="#icon-padlock"></use>
+  </svg>
+</div>
+<label for="secret" class="input-label"
+  >Secret<abbr class="required" title="required">*</abbr></label
+>
+<div class="input-with-icon input-icon--right">
+  {{ form.secret }}
+  <svg class="woox-icon icon-padlock">
+    <use xlink:href="#icon-padlock"></use>
+  </svg>
+</div>
+{% endblock form_content%}
+
+{% block button %}
+<br>
+<button class="btn btn--large pt80 btn--green-light btn--with-icon btn--icon-right">
+  continue
+  <svg class="woox-icon icon-arrow-right">
+    <use xlink:href="#icon-arrow-right"></use>
+  </svg>
+</button>
+{% endblock button %}
+{% block extrafields %}
+<div style="float: right">
+  <a class="link-underlined" href="">save &amp add</a><br />
+  <button class="btn btn--large btn--primary btn--with-icon btn--icon-right">
+    beneficiary
+    <svg class="woox-icon icon-arrow-right">
+      <use xlink:href="#icon-arrow-right"></use>
+    </svg>
+  </button>
+</div>
+{% endblock extrafields %}

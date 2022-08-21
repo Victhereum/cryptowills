@@ -17,6 +17,7 @@ urlpatterns = [
     # User management
     path("users/", include("cryptowills.users.urls", namespace="users")),
     path("flowers/", include("cryptowills.flowers.urls", namespace="flowers")),
+    path("portfolio/", include("cryptowills.exchanges.urls", namespace="portfolio")),
     path("accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

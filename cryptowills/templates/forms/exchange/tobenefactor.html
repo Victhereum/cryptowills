@@ -1,0 +1,25 @@
+{% extends '_partials/form_layout.html' %} {% load static %} {% block heading %}
+Connect{% endblock heading %} {% block form_content %}
+  <label>Exchange<span>*</span></label>
+  <select name="exchange" class="woox--select woox--select-squared woox--select--dark" data-dropdown-css-class="woox--select-squared-dropdown-dark" data-minimum-results-for-search="Infinity">
+    <option data-display="Select Items">Select</option>
+    {% for exchange in exchanges %}
+      <option value="{{ forloop.counter }}">{{ exchange }}</option>
+    {% endfor %}
+  </select>
+
+  <label>Benefactor<span>*</span></label>
+  <select name="benefactor" class="woox--select woox--select-squared woox--select--dark" data-dropdown-css-class="woox--select-squared-dropdown-dark" data-minimum-results-for-search="Infinity">
+    <option data-display="Select Items">Select Items</option>
+    {% for benefactor in beneficiaries %}
+    <option value="{{ forloop.counter }}">{{ benefactor.identifier }}</option>
+    {% endfor %}
+    <svg class="woox-icon"><use xlink:href="#icon-group"></use></svg>
+  </select>
+{% endblock form_content %}
+{% block button %}
+<button class="btn btn--large btn--primary btn--with-icon btn--icon-right">
+  Save
+  <svg class="woox-icon icon-arrow-right"><use xlink:href="#icon-arrow-right"></use></svg>
+</button>
+{% endblock button %}

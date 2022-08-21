@@ -1,4 +1,4 @@
-{% extends 'partials/form_layout.html' %}
+{% extends '_partials/form_layout.html' %}
 {% load static %}
 {% block heading %} Login {% endblock heading %}
 {% block form_content %}
@@ -24,14 +24,20 @@
           {% endblock form_content %}
           {% block button %}
           <button class="btn btn--large btn--primary btn--with-icon btn--icon-right">
-            Login NOW
+            Login
             <svg class="woox-icon icon-arrow-right"><use xlink:href="#icon-arrow-right"></use></svg>
           </button>
           {% endblock button %}
         </form>
         {% block extrafields %}
-        <button style="float: right" class="btn btn--large btn--green-light btn--transparent btn--with-icon btn--icon-right">
-          Create an Account
-          <svg class="woox-icon icon-arrow-right"><use xlink:href="#icon-arrow-right"></use></svg>
-        </button>
+        <div style="float: right">
+          <a class="link-underlined" href="{% url 'users:account_signup' %}">Dont have an account?<br />
+            <button class="btn btn--large btn--green-light btn--with-icon btn--icon-right">
+              SignUp
+              <svg class="woox-icon icon-arrow-right">
+                <use xlink:href="#icon-arrow-right"></use>
+              </svg>
+            </button>
+          </a>
+        </div>
         {% endblock extrafields %}

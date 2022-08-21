@@ -1,10 +1,9 @@
-from django.contrib import auth
+from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
-from django.core.checks import messages
+from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import redirect, render
 
-from cryptowills.exchanges.models import Exchanges as ExchangeModel
-from cryptowills.exchanges.views import Exchange
+from cryptowills.flowers.models import Flowers
 from cryptowills.users.forms import AddBeneficiary, LoginForm, UserSignupForm
 
 from .models import Beneficiary
@@ -63,8 +62,10 @@ def create_username(_email):
 
 
 def signup(request):
-
     form = UserSignupForm()
+    if request.user.is_authenticated:
+        return redirect("exchanges:portfolio")
+
     if request.method == "POST":
         print("POST Successful")
         form = UserSignupForm(request.POST)
@@ -100,29 +101,35 @@ def login_user(request):
         if form.is_valid():
             print("Form is valid", form.is_valid())
             email = form.cleaned_data.get("email")
-            password = form.cleaned_data.get("password")
+            # password = form.cleaned_data.get("password")
             username = ""
-            print(password)
             try:
                 username = User.objects.get(email=email).username
                 user = User.objects.get(username=username)
-                print(username)
                 # user = auth.authenticate(username=username, password=password)
             except User.DoesNotExist:
-                return print("Invalid")
-            print(user)
+                messages.error(request, "Please verify your email")
+                return render(request, "account/login.html")
             if user:
                 if user.is_authenticated:
                     auth.login(request, user)
-                    return redirect("home")
-                else:
-                    messages.Error(request, "Please verify your email")
-            else:
-                messages.Error(
-                    request, "This email or password does not exist, Please try again"
-                )
-        else:
-            messages.Error(request, "Error validating the form")
+                    try:
+                        if Flowers.objects.get(user_id=user.id) is not None:
+                            print(user.id)
+                            print(Flowers.objects.get(user_id=user.id))
+                            messages.success(request, f"Welcome back {user}")
+                            return redirect("exchanges:portfolio")
+                    except ObjectDoesNotExist:
+                        return redirect("flowers:add_flowers")
+        #         else:
+        #             messages.Error(request, "Please verify your email")
+        #     else:
+        #         messages.Error(
+        #             request, "This email or password does not exist, Please try again"
+        #         )
+        # else:
+        #     messages.Error(request, "Error validating the form")
+        # messages.Info(request, "This email or password does not exist, Please try again")
 
     return render(request, "account/login.html", {"form": form})
 
@@ -130,33 +137,13 @@ def login_user(request):
 @login_required
 def logout_user(request):
     auth.logout(request)
-    messages.Info(request, "Your are logged out.")
+    messages.info(request, "Your are logged out.")
     return redirect("home")
 
 
 @login_required
-def dashboard(request):
-    user = User.objects.get(username=request.user)
-    user_flower = user.user_flowers.get()
-    exchange_name = str(ExchangeModel.objects.get(id=user_flower.exchange_id))
-    exchange = Exchange(
-        exchange_name,
-        user_flower.api_key,
-        user_flower.secret,
-        user.user_beneficiary.get().wallet_address,
-    )
-    context = {
-        "user": user,
-        "exchange_name": exchange_name,
-        "exchange": exchange,
-    }
-
-    # print(exchange.get_all_coin_balances())
-    # print(make_withdrawal())
-    return render(request, "account/portfolio/dashboard.html", context)
-
-
 def add_benefactor(request):
+    user = User.objects.get(username=request.user)
     form = AddBeneficiary(request.POST)
 
     if request.method == "POST":
@@ -164,22 +151,22 @@ def add_benefactor(request):
 
             form.save
 
-            coin_ticker = request.POST.get("coin_ticker")
             identifier = request.POST.get("identifier")
             wallet_address = request.POST.get("wallet_address")
 
             beneficiary = Beneficiary.objects.create(
-                user=request.user,
-                coin_ticker=coin_ticker,
+                user=user,
                 identifier=identifier,
                 wallet_address=wallet_address,
             )
             beneficiary.save()
-            return redirect("users:dashboard")
+            user.has_beneficiary = True
+            user.save()
+            return redirect("exchanges:to_benefactor")
 
     context = {"form": form}
 
-    return render(request, "beneficiary/add_beneficiary.html", context)
+    return render(request, "forms/beneficiary/add_beneficiary.html", context)
 
 
 #

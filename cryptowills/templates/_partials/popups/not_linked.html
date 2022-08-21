@@ -1,0 +1,27 @@
+<div class="window-popup pt-100 register-event active">
+  <div class="mCustomScrollbar" data-mcs-theme="dark">
+    <div class="content">
+      <a class="js-open-popup js-body-overlay popup-close" href="#">
+        <svg class="woox-icon"><use xlink:href="#icon-info-circle"></use></svg>
+      </a>
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="widget w--help bg-help">
+          <h3 class="title">
+            Hello <span class="weight-bold">{{ user }}</span>
+          </h3>
+          <p class="text">
+            We observed you have not linked your <span class="weight-bold"> {{ exchange_name }} </span> exchange to any beneficiaries,
+             simply click the button below to link them
+          </p>
+          <a
+            href="{% url 'exchanges:to_benefactor' %}"
+            class="btn btn--large btn--secondary btn--with-icon btn--icon-left"
+          >
+          <svg class="woox-icon"><use xlink:href="#icon-link"></use></svg>
+          Link NOW
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

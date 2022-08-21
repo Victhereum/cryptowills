@@ -1,0 +1,28 @@
+<div class="window-popup pt-100 register-event active">
+  <div class="mCustomScrollbar" data-mcs-theme="dark">
+    <div class="content">
+      <a class="js-open-popup js-body-overlay popup-close" href="#">
+        <svg class="woox-icon"><use xlink:href="#icon-info-circle"></use></svg>
+      </a>
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="widget w--help bg-help">
+          <h3 class="title">
+            Hello <span class="weight-bold">{{ user }}</span>
+          </h3>
+          <p class="text">
+            Welcome to CryptoWills, your all in one platform for crypto
+             asset insurance accross all exchanges.<br>
+             Click continue to add an exchange
+          </p>
+          <a
+            href="{% url 'users:add_benefactor' %}"
+            class="btn btn--large btn--secondary btn--with-icon btn--icon-left"
+          >
+          <svg class="woox-icon"><use xlink:href="#icon-arrow-right-line"></use></svg>
+          Continue
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

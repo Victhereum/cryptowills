@@ -1242,3 +1242,31 @@ var CRUMINA = {};
 	});
 
 })(jQuery);
+
+// ANIMATE LOGO
+// sleep time expects milliseconds
+function sleep (time) {
+	return new Promise((resolve) => setTimeout(resolve, time));
+  }
+setTimeout(animateLogo, 2000)
+setTimeout(removeMessage, 7000)
+
+function animateLogo(){
+	let text = document.getElementById("logo-text").innerText;
+
+	document.getElementById("logo-text").innerText = "CW"
+}
+// CounterToDecimal
+function myBalanceDecimal(){
+	let myBalance = document.getElementById("myBalance").value;
+
+    console.log(myBalance);
+	document.getElementById("logo-text").innerText = myBalance;
+
+}
+
+function removeMessage(){
+	document.getElementById("message-container").innerHTML = ""
+}
+
+//

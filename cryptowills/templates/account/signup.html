@@ -1,44 +1,53 @@
-{% extends 'partials/form_layout.html' %}
-{% load static %}
-{% block heading %} SignUp {% endblock heading %}
-  {% block form_content %}
-          <div class="form-group label-floating is-empty">
-            <label for="email" class="input-label">Email Address <abbr class="required" title="required">*</abbr></label>
-            {{ form.email }}
-          </div>
-          <div class="form-group label-floating is-empty">
-            <label for="country" class="input-label">Country <abbr class="required" title="required">*</abbr></label>
-            {{ form.country }}
-          </div>
-          <div class="form-group label-floating is-empty">
-            <label for="password" class="input-label">Password<abbr class="required" title="required">*</abbr></label>
-            {{ form.password }}
-          </div>
-          <div class="form-group label-floating is-empty">
-            <label for="confirm_password" class="input-label">Confirm Password<abbr class="required" title="required">*</abbr></label>
-            {{ form.confirm_password }}
-          </div>
+{% extends '_partials/form_layout.html' %} {% load static %} {% block heading %}
+SignUp {% endblock heading %} {% block form_content %}
+<div class="form-group label-floating is-empty">
+  <label for="email" class="input-label"
+    >Email Address <abbr class="required" title="required">*</abbr></label
+  >
+  {{ form.email }}
+</div>
+<div class="form-group label-floating is-empty">
+  <label for="country" class="input-label"
+    >Country <abbr class="required" title="required">*</abbr></label
+  >
+  {{ form.country }}
+</div>
+<div class="form-group label-floating is-empty">
+  <label for="password" class="input-label"
+    >Password<abbr class="required" title="required">*</abbr></label
+  >
+  {{ form.password }}
+</div>
+<div class="form-group label-floating is-empty">
+  <label for="confirm_password" class="input-label"
+    >Confirm Password<abbr class="required" title="required">*</abbr></label
+  >
+  {{ form.confirm_password }}
+</div>
 
-          <div class="checkbox checkbox--style3">
-            <label>
-              <input type="checkbox" name="optionsCheckboxes10" checked>
-              I agree with the all additional
-              <a class="link-underlined" href="#">Terms and Conditions</a>
-            </label>
-          </div>
-  {% endblock form_content %}
-        {% block button %}
-        <button class="btn btn--large btn--green-light btn--with-icon btn--icon-right">
-          SignUp
-          <svg class="woox-icon icon-arrow-right"><use xlink:href="#icon-arrow-right"></use></svg>
-        </button>
-        {% endblock button %}
-        {% block extrafields %}
-        <div style="float: right">
-        <a class="link-underlined" href="#">have an account?</a><br>
-        <button class="btn btn--large btn--primary btn--with-icon btn--icon-right">
-          Login
-          <svg class="woox-icon icon-arrow-right"><use xlink:href="#icon-arrow-right"></use></svg>
-        </button>
-      </div>
-        {% endblock extrafields %}
+<div class="checkbox checkbox--style3">
+  <label>
+    <input type="checkbox" name="optionsCheckboxes10" checked />
+    I agree with the all additional
+    <a class="link-underlined" href="#">Terms and Conditions</a>
+  </label>
+</div>
+{% endblock form_content %} {% block button %}
+<button class="btn btn--large btn--green-light btn--with-icon btn--icon-right">
+  SignUp
+  <svg class="woox-icon icon-arrow-right">
+    <use xlink:href="#icon-arrow-right"></use>
+  </svg>
+</button>
+{% endblock button %} {% block extrafields %}
+<div style="float: right">
+  <a class="link-underlined" href="{% url 'users:account_login' %}">have an account?<br />
+    <button class="btn btn--large btn--primary btn--with-icon btn--icon-right">
+      Login
+      <svg class="woox-icon icon-arrow-right">
+        <use xlink:href="#icon-arrow-right"></use>
+      </svg>
+    </button>
+  </a>
+</div>
+{% endblock extrafields %}

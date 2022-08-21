@@ -41,6 +41,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=100, unique=True)
     username = models.CharField(max_length=15, default="")
     country = models.CharField(max_length=50)
+    is_firsttime = models.BooleanField(default=True)
+    has_beneficiary = models.BooleanField(default=False)
+    has_flowers = models.BooleanField(default=False)
+    has_willed = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     last_login = models.DateTimeField(null=True, blank=True)
     staff = models.BooleanField(default=False)  # a admin user; non super-user
@@ -93,7 +97,9 @@ class Beneficiary(models.Model):
         User, on_delete=models.CASCADE, related_name="user_beneficiary"
     )
     coin_ticker = models.CharField(
-        max_length=6, help_text="The coin ticker e.g USDT, BNB, ETH, etc."
+        max_length=6,
+        default="USDT",
+        help_text="The coin ticker e.g USDT, BNB, ETH, etc.",
     )
     identifier = models.CharField(max_length=60)
     wallet_address = models.CharField(max_length=100)

@@ -6,6 +6,7 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 import environ
+from django.contrib.messages import constants as messages
 
 ROOT_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 # cryptowills/
@@ -83,7 +84,7 @@ DJANGO_APPS = [
     "django.contrib.sites",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # "django.contrib.humanize", # Handy template tags
+    "django.contrib.humanize",  # Handy template tags
     "django.contrib.admin",
     "django.forms",
 ]
@@ -124,7 +125,7 @@ AUTHENTICATION_BACKENDS = [
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-user-model
 AUTH_USER_MODEL = "users.User"
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-redirect-url
-LOGIN_REDIRECT_URL = "users:dashboard"
+LOGIN_REDIRECT_URL = "exchanges:portfolio"
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-url
 LOGIN_URL = "users:account_login"
 LOGOUT_REDIRECT_URL = "home"
@@ -344,4 +345,11 @@ CELERY_BEAT_SCHEDULE = {
     },
 }
 # Your stuff...
+MESSAGE_TAGS = {
+    messages.DEBUG: "alert-secondary",
+    messages.INFO: "alert-info",
+    messages.SUCCESS: "alert-success",
+    messages.WARNING: "alert-warning",
+    messages.ERROR: "alert-danger",
+}
 # ------------------------------------------------------------------------------
