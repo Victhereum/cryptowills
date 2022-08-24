@@ -5,3 +5,9 @@ function myBalanceDecimal(){
 	document.getElementById("logo-text").innerText = myBalance;
 
 }
+
+function closePopup(){
+	text = document.getElementById("how-to").innerHTML;
+	console.log(text);
+}
+//

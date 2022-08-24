@@ -1,0 +1,32 @@
+{% extends '_partials/base.html' %} {% load static %} {% block content %}
+{% if not user.has_beneficiary %}
+  {% include '_partials/popups/no_beneficiary.html' %}
+{% endif %}
+<section class="pt-mobile-80">
+  <div class="container">
+    <h2 class="heading-title heading--half-colored pt120">My Beneficiaries</h2>
+    <a href="{% url 'users:add_benefactor' %}"><br>
+    <button class="btn btn--large btn--primary btn--with-icon btn--icon-right">
+      Add More
+      <svg class="woox-icon"><use xlink:href="#icon-plus-sign"></use></svg>
+    </button>
+    </a>
+    <div class="row medium-padding120">
+      {% for benefactor in beneficiaries %}
+      <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 mb30">
+        <div class="author-block author-block--column {% cycle 'hover-shadow-top' 'hover-shadow-left' 'hover-shadow-right' %} ">
+          <div class="avatar avatar200">
+            <img style="width:fit-content" src="{% static 'img/logo-primary.png' %}" alt="avatar">
+          </div>
+          <div class="author-content">
+            <a href="{{ benefactor.get_absolute_url }}" class="h6 author-name">{{ benefactor.identifier }}</a>
+            <div class="author-prof">{{ benefactor.wallet_address|truncatechars:15}}</div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <hr class="divider">
+  </div>
+</section>
+{% endblock %}

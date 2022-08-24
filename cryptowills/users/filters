@@ -1,0 +1,14 @@
+from django import template
+from django.template.defaultfilters import stringfilter
+register = template.Library()
+
+
+@register.filter
+@stringfilter
+def address_shortner(value):
+    '''
+    filter that shortens the adress producing the first and last 5 letters
+    '''
+    first_five = value[:5]
+    last_five = value[37:]
+    return str(first_five + last_five)

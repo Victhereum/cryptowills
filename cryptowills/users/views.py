@@ -6,6 +6,7 @@ from django.shortcuts import redirect, render
 from cryptowills.flowers.models import Flowers
 from cryptowills.users.forms import AddBeneficiary, LoginForm, UserSignupForm
 
+from .generate_wallet import generate_wallet
 from .models import Beneficiary
 
 User = auth.get_user_model()
@@ -69,10 +70,8 @@ def signup(request):
     if request.method == "POST":
         print("POST Successful")
         form = UserSignupForm(request.POST)
-        print(form)
         if form.is_valid():
-            print("Form Valid")
-
+            form.save()
             email = form.cleaned_data["email"]
             username = create_username(email)
             country = form.cleaned_data["country"]
@@ -85,7 +84,7 @@ def signup(request):
             user.save()
             auth.authenticate(request, username=user.username, password=user.password)
             auth.login(request, user)
-            return redirect("users:dashboard")
+            return redirect("exchanges:portfolio")
     context = {
         "form": form,
     }
@@ -93,17 +92,17 @@ def signup(request):
 
 
 def login_user(request):
+    # TODO: Rewrite logic for login
     form = LoginForm(request.POST)
-    # form = AuthenticationForm(request,data=request.POST)
 
     if request.method == "POST":
 
         if form.is_valid():
-            print("Form is valid", form.is_valid())
             email = form.cleaned_data.get("email")
             # password = form.cleaned_data.get("password")
             username = ""
             try:
+                # TODO: This is so wrong
                 username = User.objects.get(email=email).username
                 user = User.objects.get(username=username)
                 # user = auth.authenticate(username=username, password=password)
@@ -115,21 +114,19 @@ def login_user(request):
                     auth.login(request, user)
                     try:
                         if Flowers.objects.get(user_id=user.id) is not None:
-                            print(user.id)
-                            print(Flowers.objects.get(user_id=user.id))
                             messages.success(request, f"Welcome back {user}")
                             return redirect("exchanges:portfolio")
                     except ObjectDoesNotExist:
                         return redirect("flowers:add_flowers")
         #         else:
-        #             messages.Error(request, "Please verify your email")
+        #             messages.error(request, "Please verify your email")
         #     else:
-        #         messages.Error(
+        #         messages.error(
         #             request, "This email or password does not exist, Please try again"
         #         )
         # else:
-        #     messages.Error(request, "Error validating the form")
-        # messages.Info(request, "This email or password does not exist, Please try again")
+        #     messages.error(request, "Error validating the form")
+        # messages.info(request, "This email or password does not exist, Please try again")
 
     return render(request, "account/login.html", {"form": form})
 
@@ -137,7 +134,7 @@ def login_user(request):
 @login_required
 def logout_user(request):
     auth.logout(request)
-    messages.info(request, "Your are logged out.")
+    messages.info(request, "You're are logged out.")
     return redirect("home")
 
 
@@ -147,9 +144,9 @@ def add_benefactor(request):
     form = AddBeneficiary(request.POST)
 
     if request.method == "POST":
-        if form.is_valid:
+        if form.is_valid():
 
-            form.save
+            form.save()
 
             identifier = request.POST.get("identifier")
             wallet_address = request.POST.get("wallet_address")
@@ -164,9 +161,57 @@ def add_benefactor(request):
             user.save()
             return redirect("exchanges:to_benefactor")
 
-    context = {"form": form}
+    data = {"form": form, "page": "add_beneficiary"}
 
-    return render(request, "forms/beneficiary/add_beneficiary.html", context)
+    return render(request, "forms/beneficiary/add_beneficiary.html", context=data)
+
+
+def all_beneficiaries(request):
+    user = request.user
+
+    beneficiaries = user.user_beneficiary.all()
+    print(beneficiaries)
+    data = {"beneficiaries": beneficiaries}
+    return render(request, "account/beneficiaries_list.html", context=data)
+
+
+def edit_beneficiary(request, pk):
+    beneficiary = request.user.user_beneficiary.get(pk=pk)
+
+    if request.method == "POST":
+        print("POST method")
+        form = AddBeneficiary(request.POST, instance=beneficiary)
+        print(form)
+        print(form.is_valid)
+        if form.is_valid():
+            form.save()
+            return redirect("users:benefactors")
+
+    form = AddBeneficiary(instance=beneficiary)
+
+    return render(request, "forms/beneficiary/add_beneficiary.html", {"form": form})
+
+
+def generate_usdt_wallet(request):
+
+    if request.method == "POST":
+        wallet_address = request.POST.get("wallet_address")
+        identifier = request.POST.get("identifier")
+        beneficiary = Beneficiary.objects.create(
+            user_id=request.user.id,
+            wallet_address=wallet_address,
+            identifier=identifier,
+        )
+
+        beneficiary.save()
+        messages.success(request, "Congrats! you just saved a new beneficiary")
+        return redirect("exchanges:portfolio")
+
+    generated_wallet = generate_wallet()
+
+    return render(
+        request, "_partials/popups/generated_wallet.html", {"wallet": generated_wallet}
+    )
 
 
 #

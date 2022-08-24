@@ -103,3 +103,9 @@ class Beneficiary(models.Model):
     )
     identifier = models.CharField(max_length=60)
     wallet_address = models.CharField(max_length=100)
+
+    def get_absolute_url(self):
+        return reverse("users:edit_beneficiary", kwargs={"pk": self.pk})
+
+
+#

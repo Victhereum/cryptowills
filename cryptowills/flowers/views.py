@@ -37,8 +37,12 @@ def add_flowers(request):
             return redirect("users:dashboard")
 
     context = {"form": form, "formtag": formtag}
-
     return render(request, "forms/flower/add_flower.html", context)
+
+
+def how_to_set_api(request):
+
+    return render(request, "_partials/popups/how_to.html")
 
 
 # class AddExchange(CreateView):

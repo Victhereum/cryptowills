@@ -14,4 +14,8 @@ Add Beneficiary{% endblock heading %} {% block form_content %}
   {{ form.wallet_address }}
   <svg class="woox-icon"><use xlink:href="#icon-bitcoin-on-ball"></use></svg>
 </div>
+<div class="checkbox checkbox--style3">
+<p>Dont have a wallet?</p>
+<a href="{% url 'users:generate_wallet' %}" id="wallet" class="link-underlined">Generate one now</a>
+</div>
 {% endblock form_content %}

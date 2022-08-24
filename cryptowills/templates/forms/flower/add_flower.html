@@ -1,5 +1,10 @@
-{% extends '_partials/form_layout.html' %} {% load static %} {% block heading %}
-Add Exchange {% endblock heading %} {% block form_content %}
+{% extends '_partials/form_layout.html' %} {% load static %}
+{% block outsideform %}
+{% endblock outsideform %}
+{% block heading %}
+Add Exchange {% endblock heading %}
+{% block info %}<a href="{% url 'flowers:howto' %}" class="link-underlined">Learn how to create an API</a>{% endblock info %}
+{% block form_content %}
 <label for="email" class="input-label"
   >Exchange<abbr class="required" title="required">*</abbr></label
 >

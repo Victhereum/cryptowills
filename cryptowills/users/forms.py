@@ -83,6 +83,11 @@ class AddBeneficiary(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        # Check if the view is an instance of a beneficiary,
+        # if True exclude the coin_ticker field, since it defaults to USDT for basic
+        # TODO: Create a logic for Premium users who wnat to also update the coin ticker
+        if self.instance and self.instance.pk:
+            self.fields.pop("coin_ticker")
         self.fields["wallet_address"].widget.attrs = {
             "placeholder": "USDT(TRC20) wallet address",
             "class": "input--dark input--squared",
@@ -91,7 +96,8 @@ class AddBeneficiary(forms.ModelForm):
             "placeholder": "wallet tag",
             "class": "input--dark input--squared",
         }
-        self.fields["coin_ticker"].widget.attrs = {
-            "placeholder": "Ticker e.g USDT, BNB, ETH",
-            "class": "input--dark input--squared",
-        }
+        if not self.instance and self.instance.pk:
+            self.fields["coin_ticker"].widget.attrs = {
+                "placeholder": "Ticker e.g USDT, BNB, ETH",
+                "class": "input--dark input--squared",
+            }
