@@ -25,7 +25,7 @@ class ExchangeToBenefactor(models.Model):
         Exchanges, on_delete=models.CASCADE, related_name="exchange_to_benefactor"
     )
     benefactor = models.ForeignKey(
-        Beneficiary, on_delete=models.CASCADE, related_name="benefactr_to_exchnage"
+        Beneficiary, on_delete=models.CASCADE, related_name="benefactor_to_exchnage"
     )
 
 

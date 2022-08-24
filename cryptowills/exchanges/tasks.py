@@ -36,11 +36,14 @@ class ClockedWithDrawals:
 @shared_task
 def make_withdrawal():
     today = timezone.now()
-    x_months_ago = today - dt.timedelta(minutes=60)
-    print(x_months_ago)
-    # Exclude all users whose last login is between X Months ago an dtoday
-    users = User.objects.filter(last_login__range=(x_months_ago, today))
-    # Iterate through the filtered users and
+    x_months_ago = today - dt.timedelta(
+        minutes=60
+    )  # NOTE: In production this should be months not minutes (6 Months precisely)
+    # Exclude all users whose last login is between X Months ago and today
+    users = User.objects.exclude(
+        last_login__range=(x_months_ago, today)
+    )  # NOTE: change filter to exclude in production
+    # Iterate through the non-excluded users and
     # Initialize users exchange
     for user in users:
         if user.is_active:
@@ -53,15 +56,16 @@ def make_withdrawal():
                 user.user_beneficiary.get().wallet_address,
             )
             user.is_active = False
-            logger.info(f"{user} is ready to withdraw")
+            logger.info("%s is ready to withdraw", user)
             exchange.singularize_assets()
             logger.info(
-                f"Withdrawn funds to {user.user_beneficiary.get().wallet_address}"
+                "Withdrawn funds to %s ", user.user_beneficiary.get().wallet_address
             )
 
     return
 
 
+# While
 while True:
     make_withdrawal.delay()
 

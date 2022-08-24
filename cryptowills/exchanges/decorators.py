@@ -1,7 +1,11 @@
+import logging
 import time
 
 import ccxt
-from django.contrib import messages
+from django.http import HttpRequest
+from django.urls import reverse
+
+logger = logging.getLogger(__name__)
 
 
 def retry_on_exception(view):
@@ -11,14 +15,14 @@ def retry_on_exception(view):
             starttime = time.time()
             try:
                 print("Trying view...")
+                print(f"IP is{HttpRequest.get_host}")
                 return view(*args, **kwargs)
-            except ccxt.NetworkError:
-                if count > 3:
-                    messages.info(*args, "Your network is slow, retrying")
-                if count > 5:
-                    messages.info(
-                        *args, "Network is still slow, try connecting to another"
-                    )
+            except ccxt.AuthenticationError:
+                logger.critical("Server IP %s changed", HttpRequest.get_host)
+            except (ccxt.NetworkError, ccxt.ExchangeError):
+                if count == 5:
+                    return reverse("exchanges:networkerror")
+
                 latency = (time.time() - starttime) + 1
                 print(f"I'm trying the server again after {latency} seconds")
                 time.sleep(latency)

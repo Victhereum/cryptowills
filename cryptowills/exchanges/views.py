@@ -1,3 +1,4 @@
+import ccxt
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
@@ -48,11 +49,14 @@ def to_benefactor(request):
 def portfolio(request):
     user = User.objects.get(username=request.user)
     try:
+        # Just checking if the user is a first timer, in order to show helpful tips on how to use the platform
         if user.has_willed or user.has_beneficiary or user.has_flowers:
             user.is_firsttime = False
             user.save()
         if Flowers.objects.get(user_id=user.id) is not None:
             user_flower = user.user_flowers.get()
+
+            print(user)
             exchange_name = str(ExchangeModel.objects.get(id=user_flower.exchange_id))
             exchange = Exchange(
                 exchange_name,
@@ -69,7 +73,6 @@ def portfolio(request):
         messages.warning(request, "No exchange to display, add one")
         return redirect("flowers:add_flowers")
 
-    # print(exchange.get_balance())
     return render(request, "account/portfolio/dashboard.html", context=objects)
 
 
@@ -86,11 +89,17 @@ def exchange_info(request, name):
     coins = []
     prices = []
     balances = []
-    for key, value in exchange.get_all_coin_balances()["coin"].items():
+
+    try:
+        exchange_data = exchange.get_all_coin_balances()
+    except ccxt.ExchangeError:
+        messages.info(request, "Network Error")
+
+    for key, value in exchange_data["coin"].items():
         coins.append(key)
-    for key, value in exchange.get_all_coin_balances()["price"].items():
+    for key, value in exchange_data["price"].items():
         prices.append(value)
-    for key, value in exchange.get_all_coin_balances()["balance"].items():
+    for key, value in exchange_data["balance"].items():
         balances.append(value)
 
     total = 0.0
@@ -108,4 +117,6 @@ def exchange_info(request, name):
     return render(request, "account/portfolio/exchange_info.html", context=objects)
 
 
-#
+def network_error(request):
+    messages.error(request, "Low network!, try connecting to a better one")
+    return render(request, "network_error.html")
