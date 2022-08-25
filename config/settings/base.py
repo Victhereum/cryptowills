@@ -125,10 +125,10 @@ AUTHENTICATION_BACKENDS = [
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-user-model
 AUTH_USER_MODEL = "users.User"
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-redirect-url
-LOGIN_REDIRECT_URL = "exchanges:portfolio"
+LOGIN_REDIRECT_URL = "/portfolio/"
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-url
-LOGIN_URL = "users:account_login"
-LOGOUT_REDIRECT_URL = "home"
+LOGIN_URL = "/portfolio/"
+LOGOUT_REDIRECT_URL = ""
 
 # PASSWORDS
 # ------------------------------------------------------------------------------
@@ -285,6 +285,9 @@ LOGGING = {
 
 # django-allauth
 # ------------------------------------------------------------------------------
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
+ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 10
+ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 86400
 ACCOUNT_ALLOW_REGISTRATION = env.bool("DJANGO_ACCOUNT_ALLOW_REGISTRATION", True)
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 ACCOUNT_AUTHENTICATION_METHOD = "email"

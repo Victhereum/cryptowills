@@ -12,6 +12,7 @@
   <div class="container">
     <h2 class="heading-title heading--half-colored">Portfolio</h2>
     <div class="row">
+      {% for exchange in portfolio %}
       <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12" data-mh="pricing-item">
         <div class="crumina-module crumina-pricing-table pricing-table--small">
           <div class="pricing-thumb">
@@ -21,7 +22,7 @@
               alt="bitcoin"
             />
             <h5 class="pricing-title">
-              {{ exchange_name | capfirst }} <span></span>
+              {{ exchange | capfirst }} <span></span>
             </h5>
             <div class="gain-drop-arrow">
               <svg class="woox-icon icon-arrow-up arrow-up active">
@@ -45,12 +46,13 @@
             </div>
           </div>
           <a
-            href="{% url 'exchanges:info' exchange_name %}"
+            href="{% url 'exchanges:info' exchange %}"
             class="btn btn--large btn--dark-lighter btn--transparent full-width"
             >View</a
           >
         </div>
       </div>
+      {% endfor %}
     </div>
     <hr class="divider" />
   </div>

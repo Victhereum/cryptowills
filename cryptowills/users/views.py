@@ -172,7 +172,7 @@ def all_beneficiaries(request):
     beneficiaries = user.user_beneficiary.all()
     print(beneficiaries)
     data = {"beneficiaries": beneficiaries}
-    return render(request, "account/beneficiaries_list.html", context=data)
+    return render(request, "account/portfolio/beneficiaries_list.html", context=data)
 
 
 def edit_beneficiary(request, pk):

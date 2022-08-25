@@ -1,6 +1,5 @@
 {% extends '_partials/base.html' %} {% load static %} {% block content %}
 {% load custom_tags %}
-<input type="hidden" id="myBalance" name="variable" value="{{ total }}">
 <section class="pt100">
   <div class="container">
     <header class="crumina-module crumina-heading heading--h2 pt-30 align-center">
@@ -23,7 +22,7 @@
             <tbody>
               {% for  coin, price, balance in data %}
               <tr
-                class="crumina-module crumina-pricing-table pricing-table--style-table c-brown"
+                class="crumina-module crumina-pricing-table pricing-table--style-table {% cycle 'c-brown' 'c-blue' 'c-blue-light' 'c-red' 'c-green' 'c-green-light'%} "
               >
                 <td>
                   <div class="pricing-thumb">

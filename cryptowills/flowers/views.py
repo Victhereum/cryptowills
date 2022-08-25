@@ -18,8 +18,8 @@ def add_flowers(request):
     if request.method == "POST":
         if form.is_valid and formtag.is_valid:
 
-            form.save
-            formtag.save
+            # form.save()
+            # formtag.save()
 
             exchange_id = request.POST.get("exchange")
             api_key = request.POST.get("api_key")
@@ -34,7 +34,7 @@ def add_flowers(request):
             flower.save()
             user.has_flowers = True
             user.save()
-            return redirect("users:dashboard")
+            return redirect("exchanges:portfolio")
 
     context = {"form": form, "formtag": formtag}
     return render(request, "forms/flower/add_flower.html", context)

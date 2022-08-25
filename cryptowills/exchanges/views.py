@@ -53,22 +53,20 @@ def portfolio(request):
         if user.has_willed or user.has_beneficiary or user.has_flowers:
             user.is_firsttime = False
             user.save()
-        if Flowers.objects.get(user_id=user.id) is not None:
-            user_flower = user.user_flowers.get()
-
-            print(user)
-            exchange_name = str(ExchangeModel.objects.get(id=user_flower.exchange_id))
-            exchange = Exchange(
-                exchange_name,
-                user_flower.api_key,
-                user_flower.secret,
-            )
-            objects = {
-                "user": user,
-                "exchange_name": exchange_name,
-                "exchange": exchange,
-            }
-
+        if Flowers.objects.filter(user_id=user.id) is not None:
+            user_portfolio = user.user_flowers.all()
+            portfolio_details = []
+            for exchange in user_portfolio:
+                exchange_instance = Exchange(
+                    str(exchange),
+                    exchange.api_key,
+                    exchange.secret,
+                )
+                portfolio_details.append(exchange_instance)
+                objects = {
+                    "user": user,
+                    "portfolio": portfolio_details,
+                }
     except ObjectDoesNotExist:
         messages.warning(request, "No exchange to display, add one")
         return redirect("flowers:add_flowers")
@@ -79,10 +77,10 @@ def portfolio(request):
 @login_required
 @retry_on_exception
 def exchange_info(request, name):
-    user = User.objects.get(username=request.user)
-    user_flower = user.user_flowers.get()
+    exchange_name = ExchangeModel.objects.get(name=name)
+    user_flower = request.user.user_flowers.get(exchange_id=exchange_name.id)
     exchange = Exchange(
-        name,
+        str(exchange_name),
         user_flower.api_key,
         user_flower.secret,
     )
@@ -102,6 +100,7 @@ def exchange_info(request, name):
     for key, value in exchange_data["balance"].items():
         balances.append(value)
 
+    # Total balance of the user
     total = 0.0
     for i in balances:
         total += i
