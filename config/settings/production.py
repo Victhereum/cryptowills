@@ -14,6 +14,7 @@ ALLOWED_HOSTS = [
     "DJANGO_ALLOWED_HOSTS",
     "cryptowills.herokuapp.com",
     "https://cryptowills.herokuapp.com/",
+    "https://cryptowills.onrender.com", "*"
 ]
 
 # DATABASES
