@@ -10,27 +10,31 @@
 {% endif %}
 <section class="pt100">
   <div class="container">
-    <h2 class="heading-title heading--half-colored">Portfolio</h2>
+    <h2 class="heading-title heading--half-colored">Portfolio</h2><br>
+    {% comment %} <div style="float:center; align:center" class="col-lg-5 col-md-12 col-sm-12 col-xs-12 mb30">
+      <div class="countdown--with-bg countdown-bg1 crumina-countdown-item">
+        {{ user.last_login }}
+        <div class="crumina-countdown" data-date="{{ time | timesince:user.last_login }}"></div>
+      </div>
+    </div> {% endcomment %}
     <div class="row">
       {% for exchange in portfolio %}
       <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12" data-mh="pricing-item">
+        {% comment %} {% with total_balance as exchange.get_balance %}
+        <h2 class="heading-title heading--half-colored">{{ total_balance += exchange.get_balance }}</h2>
+        {% endwith %} {% endcomment %}
         <div class="crumina-module crumina-pricing-table pricing-table--small">
           <div class="pricing-thumb">
             <img
               src="{% static 'img/logo-primary.png' %}"
               class="woox-icon"
-              alt="bitcoin"
+              alt="{{exchange}}_logo"
             />
             <h5 class="pricing-title">
               {{ exchange | capfirst }} <span></span>
             </h5>
             <div class="gain-drop-arrow">
-              <svg class="woox-icon icon-arrow-up arrow-up active">
-                <use xlink:href="#icon-arrow-up"></use>
-              </svg>
-              <svg class="woox-icon icon-arrow-down arrow-down">
-                <use xlink:href="#icon-arrow-down"></use>
-              </svg>
+              <svg class="woox-icon"><use xlink:href="#icon-menu-2"></use></svg>
             </div>
           </div>
           <div style="float: left" class="price">

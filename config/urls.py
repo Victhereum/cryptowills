@@ -15,8 +15,8 @@ urlpatterns = [
     # Django Admin, use {% url 'admin:index' %}
     path(settings.ADMIN_URL, admin.site.urls),
     # User management
-    path("users/", include("cryptowills.users.urls", namespace="users")),
-    path("flowers/", include("cryptowills.flowers.urls", namespace="flowers")),
+    path("account/", include("cryptowills.users.urls", namespace="users")),
+    path("exchange/", include("cryptowills.flowers.urls", namespace="flowers")),
     path("portfolio/", include("cryptowills.exchanges.urls", namespace="portfolio")),
     path("accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here

@@ -11,7 +11,14 @@ class Exchange:
     # pylint: disable=too-many-instance-attributes
     # Eleven is reasonable in this case.
 
-    def __init__(self, exchange_name, api_Key, secret, addresses=None, identifier=None):
+    def __init__(
+        self,
+        exchange_name: str,
+        api_Key: str,
+        secret: str,
+        addresses=None,
+        identifier=None,
+    ):
         self.identifier = identifier
         self.exchange_name = exchange_name
         self.api_Key = api_Key
@@ -32,6 +39,16 @@ class Exchange:
 
     def __repr__(self):
         return self.exchange_name
+
+    def is_valid(self):
+        try:
+            self.exchange.fetchBalance()
+            return True
+        except ccxt.AuthenticationError:
+            return False
+
+    def get_exchange_logo(self):
+        return self.exchange.urls["logo"]
 
     def get_balance(self):
         start = time.time()
@@ -255,3 +272,6 @@ class Exchange:
             self.exchange.withdraw(coin, balance, self.addresseses[count])
             count += 1
         return self.success
+
+
+#

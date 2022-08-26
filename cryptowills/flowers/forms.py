@@ -74,9 +74,7 @@ class AddFlowers(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["exchange"].widget.attrs[
-            "placeholder"
-        ] = "give a tag to this api e.g Binance-My Child"
+        self.fields["exchange"].widget.attrs["placeholder"] = "select an exchange"
         self.fields["api_key"].widget.attrs["placeholder"] = "API Key"
         self.fields["secret"].widget.attrs["placeholder"] = "API Secret"
 

@@ -12,46 +12,6 @@ from .models import Beneficiary
 User = auth.get_user_model()
 
 
-# class UserDetailView(LoginRequiredMixin, DetailView):
-
-#     model = User
-#     slug_field = "username"
-#     slug_url_kwarg = "username"
-
-
-# user_detail_view = UserDetailView.as_view()
-
-
-# class UserUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
-
-#     model = User
-#     fields = ["username"]
-#     success_message = _("Information successfully updated")
-
-#     def get_success_url(self):
-#         assert (
-#             self.request.user.is_authenticated
-#         )  # for mypy to know that the user is authenticated
-#         return self.request.user.get_absolute_url()
-
-#     def get_object(self):
-#         return self.request.user
-
-
-# user_update_view = UserUpdateView.as_view()
-
-
-# class UserRedirectView(LoginRequiredMixin, RedirectView):
-
-#     permanent = False
-
-#     def get_redirect_url(self):
-#         return reverse("users:dashboard")
-
-
-# user_redirect_view = UserRedirectView.as_view()
-
-
 def create_username(_email):
     email = _email
     username = ""
@@ -85,9 +45,7 @@ def signup(request):
             auth.authenticate(request, username=user.username, password=user.password)
             auth.login(request, user)
             return redirect("exchanges:portfolio")
-    context = {
-        "form": form,
-    }
+    context = {"form": form, "page_title": "Cryptowillz::SignUp"}
     return render(request, "account/signup.html", context)
 
 
@@ -128,7 +86,11 @@ def login_user(request):
         #     messages.error(request, "Error validating the form")
         # messages.info(request, "This email or password does not exist, Please try again")
 
-    return render(request, "account/login.html", {"form": form})
+    return render(
+        request,
+        "account/login.html",
+        {"form": form, "page_title": "Cryptowillz::Login"},
+    )
 
 
 @login_required
@@ -161,7 +123,7 @@ def add_benefactor(request):
             user.save()
             return redirect("exchanges:to_benefactor")
 
-    data = {"form": form, "page": "add_beneficiary"}
+    data = {"form": form, "page_title": "add_beneficiary"}
 
     return render(request, "forms/beneficiary/add_beneficiary.html", context=data)
 
@@ -171,7 +133,10 @@ def all_beneficiaries(request):
 
     beneficiaries = user.user_beneficiary.all()
     print(beneficiaries)
-    data = {"beneficiaries": beneficiaries}
+    data = {
+        "beneficiaries": beneficiaries,
+        "page_title": "Cryptowillz::All Beneficiaries",
+    }
     return render(request, "account/portfolio/beneficiaries_list.html", context=data)
 
 
@@ -189,7 +154,11 @@ def edit_beneficiary(request, pk):
 
     form = AddBeneficiary(instance=beneficiary)
 
-    return render(request, "forms/beneficiary/add_beneficiary.html", {"form": form})
+    return render(
+        request,
+        "forms/beneficiary/add_beneficiary.html",
+        {"form": form, "page_title": f"Cryptowillz::Edit {beneficiary}"},
+    )
 
 
 def generate_usdt_wallet(request):
@@ -210,7 +179,9 @@ def generate_usdt_wallet(request):
     generated_wallet = generate_wallet()
 
     return render(
-        request, "_partials/popups/generated_wallet.html", {"wallet": generated_wallet}
+        request,
+        "_partials/popups/generated_wallet.html",
+        {"wallet": generated_wallet, "page_title": "Cryptowillz::Create Wallet"},
     )
 
 

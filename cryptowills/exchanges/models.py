@@ -9,6 +9,9 @@ User = get_user_model()
 
 class Exchanges(models.Model):
     name = models.CharField(max_length=50)
+    logo = models.ImageField(
+        upload_to="images/exchanges", default="images/logo-primary"
+    )
 
     def __str__(self):
         return self.name
