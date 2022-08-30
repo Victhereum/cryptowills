@@ -71,7 +71,7 @@ def login_user(request):
                 if user.is_authenticated:
                     auth.login(request, user)
                     try:
-                        if Flowers.objects.get(user_id=user.id) is not None:
+                        if Flowers.objects.filter(user_id=user.id) is not None:
                             messages.success(request, f"Welcome back {user}")
                             return redirect("exchanges:portfolio")
                     except ObjectDoesNotExist:
