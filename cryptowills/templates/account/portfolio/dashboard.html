@@ -1,12 +1,8 @@
 {% extends '_partials/base.html' %} {% load static %} {% block content %}
 {% if user.is_firsttime %}
   {% include '_partials/popups/firsttimer.html' %}
-{% elif not user.has_beneficiary %}
-  {% include '_partials/popups/no_beneficiary.html' %}
 {% elif not user.has_flowers %}
   {% include '_partials/popups/no_flower.html' %}
-{% elif not user.has_willed %}
-  {% include '_partials/popups/not_linked.html' %}
 {% endif %}
 <section class="pt100">
   <div class="container">
