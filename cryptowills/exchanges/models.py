@@ -17,7 +17,7 @@ class Exchanges(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("exchnages:info", kwargs={"name": self.name})
+        return reverse("exchanges:info", kwargs={"name": self.name})
 
 
 class ExchangeToBenefactor(models.Model):
