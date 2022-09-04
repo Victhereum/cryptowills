@@ -11,7 +11,6 @@ from django.contrib.messages import constants as messages
 ROOT_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 # cryptowills/
 APPS_DIR = ROOT_DIR / "cryptowills"
-print(APPS_DIR)
 env = environ.Env()
 
 READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=False)
