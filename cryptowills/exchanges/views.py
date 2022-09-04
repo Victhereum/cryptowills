@@ -103,12 +103,12 @@ def portfolio(request):
                     )
                 # --------------------------------------------------------------
                 # Context data
-                objects = {
-                    "user": user,
-                    "time": dt.now(),
-                    "portfolio": portfolio_details,
-                    "page_title": "Cryptowills | Portfolio",
-                }
+            objects = {
+                "user": user,
+                "time": dt.now(),
+                "portfolio": portfolio_details,
+                "page_title": "Cryptowills | Portfolio",
+            }
         # --------------------------------------------------------------
 
     # --------------------------------------------------------------
