@@ -30,21 +30,18 @@ def signup(request):
     if request.method == "POST":
         print("POST Successful")
         form = UserSignupForm(request.POST)
-        if form.is_valid():
-            form.save()
-            email = form.cleaned_data["email"]
-            username = create_username(email)
-            country = form.cleaned_data["country"]
-            password = form.cleaned_data["password"]
+        print("FORM is", form.is_valid())
+        email = form.cleaned_data
+        username = create_username(email)
+        country = form.cleaned_data["country"]
+        password = form.cleaned_data["password"]
 
-            user = User.objects.create_user(
-                country=country, email=email, username=username
-            )
-            user.set_password = password
-            user.save()
-            auth.authenticate(request, username=user.username, password=user.password)
-            auth.login(request, user)
-            return redirect("exchanges:portfolio")
+        user = User.objects.create_user(country=country, email=email, username=username)
+        user.set_password = password
+        user.save()
+        auth.authenticate(request, username=user.username, password=user.password)
+        auth.login(request, user)
+        return redirect("exchanges:portfolio")
     context = {"form": form, "page_title": "Cryptowillz::SignUp"}
     return render(request, "account/signup.html", context)
 
