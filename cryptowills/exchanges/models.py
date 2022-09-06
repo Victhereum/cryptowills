@@ -9,15 +9,19 @@ User = get_user_model()
 
 class Exchanges(models.Model):
     name = models.CharField(max_length=50)
-    logo = models.ImageField(
-        upload_to="images/exchanges", default="images/logo-primary"
-    )
+    logo = models.ImageField(upload_to="img/exchanges", default="img/logo-primary")
 
     def __str__(self):
         return self.name
 
     def get_absolute_url(self):
         return reverse("exchanges:info", kwargs={"name": self.name})
+
+    def get_logo(self):
+        if self.logo and hasattr(self.logo, "url"):
+            return self.logo.url
+        else:
+            return "img/logo-primary.png"
 
 
 class ExchangeToBenefactor(models.Model):

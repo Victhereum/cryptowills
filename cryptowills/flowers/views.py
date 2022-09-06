@@ -22,14 +22,14 @@ def add_flowers(request):
             exchange_id = request.POST.get("exchange")
             api_key = request.POST.get("api_key")
             secret = request.POST.get("secret")
-            exchange = Exchanges.objects.get(id=exchange_id)
+            user_exchange = Exchanges.objects.get(id=exchange_id)
             # Validate if the credential are valid in users exchange
-            exchange = Exchange(str(exchange), api_key, secret)
+            exchange = Exchange(str(user_exchange), api_key, secret)
             if exchange.is_valid():
 
                 flower = Flowers.objects.create(
                     user=user,
-                    exchange=exchange,
+                    exchange=user_exchange,
                     api_key=api_key,
                     secret=secret,
                 )
