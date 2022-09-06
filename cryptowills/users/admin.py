@@ -24,10 +24,11 @@ class UserAdmin(auth_admin.UserAdmin):
     )
     list_display = [
         "email",
+        "country",
     ]
     list_display_links = ("email",)
-    readonly_fields = ("last_login", "date_joined")
-    search_fields = ["email"]
+    readonly_fields = ("country", "last_login", "date_joined")
+    search_fields = ["email", "country"]
     ordering = ["email"]
 
     filter_horizontal = ()

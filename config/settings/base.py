@@ -119,15 +119,15 @@ MIGRATION_MODULES = {"sites": "cryptowills.contrib.sites.migrations"}
 # https://docs.djangoproject.com/en/dev/ref/settings/#authentication-backends
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
-    # "allauth.account.auth_backends.AuthenticationBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-user-model
 AUTH_USER_MODEL = "users.User"
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-redirect-url
 LOGIN_REDIRECT_URL = "/portfolio/"
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-url
-LOGIN_URL = "/portfolio/"
-LOGOUT_REDIRECT_URL = ""
+LOGIN_URL = "/accounts/login/"
+LOGOUT_REDIRECT_URL = "home"
 
 # PASSWORDS
 # ------------------------------------------------------------------------------

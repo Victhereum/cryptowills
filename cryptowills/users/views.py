@@ -1,93 +1,13 @@
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
-from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import redirect, render
 
-from cryptowills.flowers.models import Flowers
-from cryptowills.users.forms import AddBeneficiary, LoginForm, UserSignupForm
+from cryptowills.users.forms import AddBeneficiary
 
 from .generate_wallet import generate_wallet
 from .models import Beneficiary
 
 User = auth.get_user_model()
-
-
-def create_username(_email):
-    email = _email
-    username = ""
-    name_email = email.split("@")
-    username = str(name_email[0])
-    if "." in username:
-        username.replace(".", " ")
-    return f"{username}"
-
-
-def signup(request):
-    form = UserSignupForm()
-    if request.user.is_authenticated:
-        return redirect("exchanges:portfolio")
-
-    if request.method == "POST":
-        print("POST Successful")
-        form = UserSignupForm(request.POST)
-        print("FORM is", form.is_valid())
-        email = form.cleaned_data
-        username = create_username(email)
-        country = form.cleaned_data["country"]
-        password = form.cleaned_data["password"]
-
-        user = User.objects.create_user(country=country, email=email, username=username)
-        user.set_password = password
-        user.save()
-        auth.authenticate(request, username=user.username, password=user.password)
-        auth.login(request, user)
-        return redirect("exchanges:portfolio")
-    context = {"form": form, "page_title": "Cryptowillz::SignUp"}
-    return render(request, "account/signup.html", context)
-
-
-def login_user(request):
-    # TODO: Rewrite logic for login
-    form = LoginForm(request.POST)
-
-    if request.method == "POST":
-
-        if form.is_valid():
-            email = form.cleaned_data.get("email")
-            # password = form.cleaned_data.get("password")
-            username = ""
-            try:
-                # TODO: This is so wrong
-                username = User.objects.get(email=email).username
-                user = User.objects.get(username=username)
-                # user = auth.authenticate(username=username, password=password)
-            except User.DoesNotExist:
-                messages.error(request, "Please verify your email")
-                return render(request, "account/login.html")
-            if user:
-                if user.is_authenticated:
-                    auth.login(request, user)
-                    try:
-                        if Flowers.objects.filter(user_id=user.id) is not None:
-                            messages.success(request, f"Welcome back {user}")
-                            return redirect("exchanges:portfolio")
-                    except ObjectDoesNotExist:
-                        return redirect("flowers:add_flowers")
-        #         else:
-        #             messages.error(request, "Please verify your email")
-        #     else:
-        #         messages.error(
-        #             request, "This email or password does not exist, Please try again"
-        #         )
-        # else:
-        #     messages.error(request, "Error validating the form")
-        # messages.info(request, "This email or password does not exist, Please try again")
-
-    return render(
-        request,
-        "account/login.html",
-        {"form": form, "page_title": "Cryptowillz::Login"},
-    )
 
 
 @login_required

@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model
+from django.contrib.auth.hashers import make_password
 
 from .models import Beneficiary
 
@@ -44,6 +45,25 @@ class UserSignupForm(forms.ModelForm):
             "placeholder": "Country",
             "class": "form-control input--squared input--dark",
         }
+
+    @staticmethod
+    def create_username(_email):
+        email = _email
+        username = ""
+        name_email = email.split("@")
+        username = str(name_email[0])
+        if "." in username:
+            username.replace(".", " ")
+        return f"{username}"
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        instance.username = self.create_username(instance.email)
+        if instance.password:
+            instance.password = make_password(instance.password)
+        if commit:
+            instance.save()
+        return instance
 
 
 class LoginForm(forms.Form):

@@ -4,8 +4,8 @@
 {% block form_content %}
           <label for="name" class="input-label">Email <abbr class="required" title="required">*</abbr></label>
           <div class="input-with-icon input-icon--right">
-            {{ form.email }}
-            <svg class="woox-icon icon-black-male-user-symbol-2"><use xlink:href="#icon-black-male-user-symbol-2"></use></svg>
+            {{ form.login }}
+           <svg class="woox-icon icon-black-male-user-symbol-2"><use xlink:href="#icon-black-male-user-symbol-2"></use></svg>
           </div>
           <label for="password" class="input-label">Password <abbr class="required" title="required">*</abbr></label>
           <div class="input-with-icon input-icon--right">
@@ -31,7 +31,7 @@
         </form>
         {% block extrafields %}
         <div style="float: right">
-          <a class="link-underlined" href="{% url 'users:account_signup' %}">Dont have an account?<br />
+          <a class="link-underlined" href="{% url 'account_signup' %}">Dont have an account?<br />
             <button class="btn btn--large btn--green-light btn--with-icon btn--icon-right">
               SignUp
               <svg class="woox-icon icon-arrow-right">

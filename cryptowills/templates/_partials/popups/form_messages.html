@@ -1,0 +1,10 @@
+{% for error in form.non_field_errors %}
+<div class="alert alert--with-bg alert-danger" role="alert">
+  <div class="alert-icon">
+  </div>
+  <strong>{{ error | safe }}</strong>
+  <a type="button" data-dismiss="alert" class="icon-close">
+    <svg aria-hidden="True" class="woox-icon icon-del"><use xlink:href="#icon-close-cross"></use></svg>
+  </a>
+</div>
+{% endfor %}

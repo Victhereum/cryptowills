@@ -24,7 +24,9 @@ SignUp {% endblock heading %} {% block form_content %}
   >
   {{ form.confirm_password }}
 </div>
+{% if field.help_text %}
 
+{% endif %}
 <div class="checkbox checkbox--style3">
   <label>
     <input type="checkbox" name="optionsCheckboxes10" checked />
@@ -41,7 +43,7 @@ SignUp {% endblock heading %} {% block form_content %}
 </button>
 {% endblock button %} {% block extrafields %}
 <div style="float: right">
-  <a class="link-underlined" href="{% url 'users:account_login' %}">have an account?<br />
+  <a class="link-underlined" href="{% url 'account_login' %}">have an account?<br />
     <button class="btn btn--large btn--primary btn--with-icon btn--icon-right">
       Login
       <svg class="woox-icon icon-arrow-right">

@@ -7,10 +7,12 @@
 
   {% endblock outsideform %}
 
-  <div style="width: 50%" class="container">
+  <div class="container">
     <div class="pt80">
       <div class="mb30" style="width: auto">
+        {% block form_actions %}
         <form class="login-form form--dark" method="post" action="">
+          {% endblock form_actions %}
           {% csrf_token %}
           <header class="crumina-module crumina-heading heading--h2 heading--with-decoration">
             <h2 class="heading-title">
@@ -34,4 +36,15 @@
     </div>
   </div>
 </section>
+<div id="message-container" class="container">
+  {% comment %} {% if messages %} {% endcomment %}
+  <div class="row medium-padding180">
+    <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-12 col-sm-offset-0 col-xs-12">
+      <div class="widget w-info">
+        <div id="message-tag" >{% include '_partials/popups/form_messages.html' %}</div>
+      </div>
+    </div>
+  </div>
+  {% comment %} {% endif %} {% endcomment %}
+</div>
 {% endblock content %}

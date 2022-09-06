@@ -1,4 +1,5 @@
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
 from django.urls import reverse
@@ -10,10 +11,13 @@ class UserManager(BaseUserManager):
             raise ValueError("Please provide valid email address.")
 
         user = self.model(
-            username=username, email=self.normalize_email(email), country=country
+            username=username,
+            email=self.normalize_email(email),
+            country=country,
+            password=make_password(password),
         )
 
-        user.set_password(password)
+        # user.set_password(password)
         user.save(using=self._db)
 
         return user
@@ -77,7 +81,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         return True
 
     def get_absolute_url(self):
-        return reverse("users:dashboard")
+        # TODO: Make a dashboard for displaying data concerning a single user only available to admin
+        return reverse("exchanges:portfolio")
 
     @property
     def is_staff(self):
