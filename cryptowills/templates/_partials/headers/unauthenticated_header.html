@@ -115,9 +115,10 @@
             <a href="{% url 'about' %}">Features</a>
           </li> {% endcomment %}
         </ul>
-
         </nav>
+        {% if not request.path == "/accounts/login/" %}
         <a href="{% url 'account_login' %}" class="btn btn--large btn--primary btn--with-icon btn--icon-right">
         Login
         <svg class="woox-icon icon-arrow-right"><use xlink:href="#icon-arrow-right"></use></svg>
         </a>
+        {% endif %}
