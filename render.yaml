@@ -1,0 +1,20 @@
+databases:
+  - name: cryptowills
+    databaseName: cryptowills
+    user: cryptowills
+
+services:
+  - type: web
+    name: cryptowills
+    env: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn mysite.wsgi:application"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: cryptowills
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: WEB_CONCURRENCY
+        value: 4
