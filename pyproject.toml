@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "cryptowills"
+version = "0.1.0"
+description = ""
+authors = ["Victhereum <tamsvictorisaac@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.8,<4.0"
+django = "^4.1.4"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
