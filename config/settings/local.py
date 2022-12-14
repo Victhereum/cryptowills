@@ -11,7 +11,9 @@ SECRET_KEY = env(
     default="R5ANkzu8sfwzhRLQHtlkYJSjqxohpldSvlZFgMVSAp1OrWmXMbfhry1cmCGS71Rg",
 )
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1"]
+ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1",
+    "https://long-kings-beg-105-112-37-7.loca.lt",
+    "long-kings-beg-105-112-37-7.loca.lt"]
 
 # CACHES
 # ------------------------------------------------------------------------------
@@ -42,7 +44,7 @@ DEBUG_TOOLBAR_CONFIG = {
     "SHOW_TEMPLATE_CONTEXT": True,
 }
 # https://django-debug-toolbar.readthedocs.io/en/latest/installation.html#internal-ips
-INTERNAL_IPS = ["127.0.0.1", "10.0.2.2"]
+INTERNAL_IPS = ["127.0.0.1", "10.0.2.2", "https://long-clowns-vanish-105-112-166-72.loca.lt", "https://long-clowns-vanish-105-112-166-72.loca.lt"]
 # if env("USE_DOCKER") == "no":
 #     import socket
 

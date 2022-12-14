@@ -16,6 +16,8 @@ ALLOWED_HOSTS = [
     "https://cryptowills.herokuapp.com/",
     "cryptowillz.com",
     "https://cryptowillz.com/",
+    "https://ready-parts-greet-105-112-56-195.loca.lt/",
+    "ready-parts-greet-105-112-56-195.loca.lt"
 ]
 
 # DATABASES
