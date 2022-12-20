@@ -11,13 +11,11 @@ from .base import MIDDLEWARE, env
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = [
-    "DJANGO_ALLOWED_HOSTS",
     "cryptowills.herokuapp.com",
     "https://cryptowills.herokuapp.com/",
     "cryptowillz.com",
-    "https://cryptowillz.com/",
-    "https://ready-parts-greet-105-112-56-195.loca.lt/",
-    "ready-parts-greet-105-112-56-195.loca.lt"
+    "https://cryptowills.onrender.com",
+    "cryptowills.onrender.com",
 ]
 
 # DATABASES
