@@ -97,7 +97,6 @@ THIRD_PARTY_APPS = [
     "rest_framework.authtoken",
     "corsheaders",
     "drf_spectacular",
-    "django_celery_beat",
 ]
 
 LOCAL_APPS = [
@@ -341,14 +340,14 @@ SPECTACULAR_SETTINGS = {
     ],
 }
 
-CELERY_BEAT_SCHEDULE = {
-    "scheduled_task": {
-        # "task": "cryptowills.exchanges.tasks.check_last_login",
-        "task": "cryptowills.exchanges.tasks.make_withdrawal",
-        # "task": "cryptowills.users.tasks.add",
-        "schedule": 5.0,
-    },
-}
+# CELERY_BEAT_SCHEDULE = {
+#     "scheduled_task": {
+#         # "task": "cryptowills.exchanges.tasks.check_last_login",
+#         "task": "cryptowills.exchanges.tasks.make_withdrawal",
+#         # "task": "cryptowills.users.tasks.add",
+#         "schedule": 5.0,
+#     },
+# }
 # Your stuff...
 MESSAGE_TAGS = {
     messages.DEBUG: "alert-secondary",

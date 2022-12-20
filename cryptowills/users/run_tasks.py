@@ -1,5 +1,5 @@
-from cryptowills.users.tasks import add
+# from cryptowills.users.tasks import add
 
-add.apply_async((3, 6), countdown=10)
+# add.apply_async((3, 6), countdown=10)
 
-#
+# #
